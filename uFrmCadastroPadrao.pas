@@ -32,9 +32,6 @@ type
     procedure dsCadastroStateChange(Sender: TObject);
   private
     FQueryCadastro: TFDQuery;
-    FQueryConsulta: TFDQuery;
-    FFrmConsultaPadrao: TFrmConsultaPadrao;
-    FConfiguracaoConsulta: TConfiguracaoConsulta;
     procedure SetQueryCadastro(const Value: TFDQuery);
     procedure InserirNovoRegistro; virtual;
     procedure SalvarRegistro; virtual;
