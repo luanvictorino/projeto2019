@@ -24,23 +24,26 @@ type
     procedure actFecharExecute(Sender: TObject);
     procedure actSelecionarExecute(Sender: TObject);
   private
+    FModoConsulta: TModoConsulta;
+    FOnSelecionarRegistro: TOnSelecionarRegistro;
     procedure SetQueryConsulta(const Value: TFDQuery);
     function GetQueryConsulta: TFDQuery;
     function GetOnSelecionarRegistro: TOnSelecionarRegistro;
     procedure SetOnSelecionarRegistro(const Value: TOnSelecionarRegistro);
+    procedure OnSelecionarRegistroInternal(const RegistroSelecionado: TDataSet);
   protected
+    function PegarNomeTabelaConsulta: string; virtual;
+    function PegarModoConsulta: TModoConsulta;
     procedure SelecionarRegistroInternal; virtual;
     procedure ConfigurarFmeConsulta; virtual; abstract;
     procedure DefinirConfiguracoesConsulta(const ConfiguracaoConsulta: TConfiguracaoConsulta);
   public
     procedure AfterConstruction; override;
+    function SelecionarID(const psCampoPesquisa: string; const pnID: integer): boolean;
     procedure DefinirModo(const ModoConsulta: TModoConsulta);
     property QueryConsulta: TFDQuery read GetQueryConsulta write SetQueryConsulta;
     property OnSelecionarRegistro: TOnSelecionarRegistro read GetOnSelecionarRegistro write SetOnSelecionarRegistro;
   end;
-
-var
-  FrmConsultaPadrao: TFrmConsultaPadrao;
 
 implementation
 
@@ -75,25 +78,53 @@ begin
   fmeConsulta.CampoBusca := ConfiguracaoConsulta.CampoBusca;
   fmeConsulta.CampoChave := ConfiguracaoConsulta.CampoChave;
   fmeConsulta.Caption := ConfiguracaoConsulta.Caption;
-  fmeConsulta.OnSelecionarRegistro := OnSelecionarRegistro;
+  fmeConsulta.OnSelecionarRegistro := OnSelecionarRegistroInternal;
 end;
 
 procedure TFrmConsultaPadrao.DefinirModo(const ModoConsulta: TModoConsulta);
 begin
+  FModoConsulta := ModoConsulta;
   pnlControles.Visible := ModoConsulta = mcForm;
+end;
+
+function TFrmConsultaPadrao.SelecionarID(const psCampoPesquisa: string; const pnID: integer): boolean;
+const
+  SQL_PESQUISA = 'select * from %s where %s = :ID';
+var
+  sSQL: string;
+  sNomeTabela: string;
+begin
+  sNomeTabela := PegarNomeTabelaConsulta;
+  if sNomeTabela.Trim.IsEmpty then
+    raise EArgumentException.Create('Não foi possível determinar o nome da tabela para pesquisa.');
+
+  sSQL := QueryConsulta.SQL.Text;
+  Result := False;
+  try
+    if QueryConsulta.Active then
+      QueryConsulta.Close;
+    QueryConsulta.SQL.Text := Format(SQL_PESQUISA, [sNomeTabela, psCampoPesquisa]);
+    QueryConsulta.Params.ParamByName('ID').AsInteger := pnID;
+    QueryConsulta.Open;
+    if QueryConsulta.IsEmpty then
+      Exit;
+    SelecionarRegistroInternal;
+    Result := True;
+  finally
+    QueryConsulta.Close;
+    QueryConsulta.SQL.Text := sSQL;
+  end;
 end;
 
 procedure TFrmConsultaPadrao.SelecionarRegistroInternal;
 begin
-  if not Assigned(OnSelecionarRegistro) then
-    Exit;
-
-  OnSelecionarRegistro(QueryConsulta);
+  if PegarModoConsulta = mcForm then
+    ModalResult := mrOk;
 end;
 
 function TFrmConsultaPadrao.GetOnSelecionarRegistro: TOnSelecionarRegistro;
 begin
-  Result := fmeConsulta.OnSelecionarRegistro;
+  Result := FOnSelecionarRegistro;
 end;
 
 function TFrmConsultaPadrao.GetQueryConsulta: TFDQuery;
@@ -101,9 +132,30 @@ begin
   Result := fmeConsulta.QueryConsulta;
 end;
 
+procedure TFrmConsultaPadrao.OnSelecionarRegistroInternal(
+  const RegistroSelecionado: TDataSet);
+begin
+  if Assigned(FOnSelecionarRegistro) then
+    FOnSelecionarRegistro(RegistroSelecionado);
+  SelecionarRegistroInternal;
+end;
+
+function TFrmConsultaPadrao.PegarModoConsulta: TModoConsulta;
+begin
+  Result := FModoConsulta;
+end;
+
+function TFrmConsultaPadrao.PegarNomeTabelaConsulta: string;
+begin
+  Result := QueryConsulta.UpdateOptions.UpdateTableName;
+  if not Result.Trim.IsEmpty then
+    Exit;
+  Result := (QueryConsulta as IProviderSupportNG).PSGetTableName;
+end;
+
 procedure TFrmConsultaPadrao.SetOnSelecionarRegistro(const Value: TOnSelecionarRegistro);
 begin
-  fmeConsulta.OnSelecionarRegistro := Value;
+  FOnSelecionarRegistro := Value;
 end;
 
 procedure TFrmConsultaPadrao.SetQueryConsulta(const Value: TFDQuery);

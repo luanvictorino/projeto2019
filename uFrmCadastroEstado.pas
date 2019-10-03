@@ -21,17 +21,13 @@ type
     lbNmPais: TLabel;
     dfNmPais: TDBEdit;
     btConsultarPais: TSpeedButton;
-    procedure dfCdPaisEnter(Sender: TObject);
-    procedure dfCdPaisExit(Sender: TObject);
     procedure btConsultarPaisClick(Sender: TObject);
+    procedure FieldadastroDataChange(Sender: TObject; Field: TField);
   private
-    FValue: Variant;
     function ValidarNmEstado: boolean;
-    procedure MostrarNomeEstado;
-    function LimparCampoPais: boolean;
-    procedure MontarConsultaPais;
-    procedure PassarNomePais;
-    procedure VerificaTabelaVazia;
+    procedure OnSelecionarPais(const RegistroAtual: TDataSet);
+    procedure SelecionarPais;
+    function PegarConsultaPais(const poDmPais: TdmPais): TfrmPaisConsulta;
   protected
     function TestarRegistroValido: boolean; override;
     function PegarCampoChave: string; override;
@@ -86,93 +82,80 @@ begin
   Result := false;
 end;
 
-procedure TFrmCadastroEstado.dfCdPaisEnter(Sender: TObject);
-begin
-  inherited;
-  if (Sender is TDBEdit) then
-    Self.FValue := TDBEdit(Sender).Text;
-end;
-
-procedure TFrmCadastroEstado.dfCdPaisExit(Sender: TObject);
-var
-  bValorCampoIgual: boolean;
-begin
-  inherited;
-  bValorCampoIgual := Self.FValue = TDBEdit(Sender).Text;
-  if bValorCampoIgual then
-    Exit;
-
-  MostrarNomeEstado;
-end;
-
-procedure TFrmCadastroEstado.MostrarNomeEstado;
-begin
-  if not LimparCampoPais then
-    Exit;
-
-  MontarConsultaPais;
-  VerificaTabelaVazia;
-  PassarNomePais;
-end;
-
-function TFrmCadastroEstado.LimparCampoPais: boolean;
-begin
-  Result := false;
-
-  if dfCdPais.Text = EmptyStr then
-  begin
-    dfNmPais.Clear;
-    Exit;
-  end;
-  Result := True;
-end;
-
-procedure TFrmCadastroEstado.MontarConsultaPais;
-var
-  sCampoCdPais: string;
-begin
-  sCampoCdPais := dfCdPais.Text;
-
-  DM.qyBusca.Close;
-  DM.qyBusca.SQL.Clear;
-  DM.qyBusca.SQL.Add('SELECT * FROM PAIS');
-  DM.qyBusca.SQL.Add('WHERE IDPAIS = :IDPAIS');
-  DM.qyBusca.ParamByName('IDPAIS').AsString := sCampoCdPais;
-  DM.qyBusca.Open;
-end;
-
-procedure TFrmCadastroEstado.VerificaTabelaVazia;
-begin
-  if DM.qyBusca.IsEmpty then
-  begin
-    ShowMessage('País não escontrado!');
-    dfNmPais.Clear;
-    dfCdPais.SetFocus;
-  end;
-end;
-
-procedure TFrmCadastroEstado.PassarNomePais;
-var
-  sCampo: String;
-begin
-  sCampo := DM.qyBusca.FieldByName('NMPAIS').AsString;
-  dfNmPais.Text := sCampo;
-end;
-
 procedure TFrmCadastroEstado.btConsultarPaisClick(Sender: TObject);
 var
   oFrmPaisConsulta: TfrmPaisConsulta;
   oDmPais: TdmPais;
 begin
-  oFrmPaisConsulta := TfrmPaisConsulta.Create(nil);
+  if not(QueryCadastro.State in dsEditModes) then
+    Exit;
   oDmPais := TdmPais.Create(nil);
+  oFrmPaisConsulta := PegarConsultaPais(oDmPais);
   try
-    oFrmPaisConsulta.QueryConsulta := oDmPais.sqlConsulta;
     oFrmPaisConsulta.ShowModal;
   finally
     oFrmPaisConsulta.Release;
     FreeAndNil(oDmPais);
   end;
+end;
+
+procedure TFrmCadastroEstado.FieldadastroDataChange(Sender: TObject; Field: TField);
+var
+  oDmPais: TdmPais;
+  oFrmPaisConsulta: TfrmPaisConsulta;
+begin
+  inherited;
+  if not Assigned(Field) then
+    Exit;
+  if not(Field.DataSet.State in dsEditModes) then
+    Exit;
+
+  if Field.FieldName.ToUpper.Equals('IDPAIS') then
+  begin
+    if Field.NewValue = Field.OldValue then
+      Exit;
+    oDmPais := TdmPais.Create(nil);
+    oFrmPaisConsulta := PegarConsultaPais(oDmPais);
+    try
+      oFrmPaisConsulta.SelecionarID('IDPAIS', Field.AsInteger)
+    finally
+      oFrmPaisConsulta.Release;
+      FreeAndNil(oDmPais);
+    end;
+  end;
+end;
+
+function TFrmCadastroEstado.PegarConsultaPais(const poDmPais: TdmPais): TfrmPaisConsulta;
+begin
+  Result := TfrmPaisConsulta.Create(nil);
+  Result.QueryConsulta := poDmPais.sqlConsulta;
+  Result.OnSelecionarRegistro := OnSelecionarPais;
+end;
+
+procedure TFrmCadastroEstado.SelecionarPais;
+begin
+  ShowMessage(QueryCadastro.FieldByName('IDPAIS').AsString)
+end;
+
+procedure TFrmCadastroEstado.OnSelecionarPais(const RegistroAtual: TDataSet);
+var
+  oIdPaisOrigem: TField;
+  oNmPaisOrigem: TField;
+  oIdPaisDestino: TField;
+  oNmPaisDestino: TField;
+begin
+  QueryCadastro.Edit;
+
+  oIdPaisOrigem := RegistroAtual.FieldByName('idPais');
+  oNmPaisOrigem := RegistroAtual.FieldByName('nmPais');
+  oIdPaisDestino := QueryCadastro.FieldByName('idPais');
+  oNmPaisDestino := QueryCadastro.FieldByName('nmPais');
+
+  if oIdPaisOrigem.AsInteger <> oIdPaisDestino.AsInteger then
+    oIdPaisDestino.Assign(oIdPaisOrigem);
+
+  if oNmPaisOrigem.AsString <> oNmPaisDestino.AsString then
+    oNmPaisDestino.Assign(oNmPaisOrigem);
 end;
 
 end.

@@ -5,12 +5,15 @@ inherited FrmCadastroEstado: TFrmCadastroEstado
   inherited pgPadrao: TPageControl
     ActivePage = tsCadastroPadrao
     inherited tsConsPadrao: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 647
+      ExplicitHeight = 347
     end
     inherited tsCadastroPadrao: TTabSheet
+      Hint = 'Pressione CTRL+ENTER para pesquisar pelo ID'
+      ParentShowHint = False
+      ShowHint = True
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 647
@@ -134,8 +137,6 @@ inherited FrmCadastroEstado: TFrmCadastroEstado
         DataField = 'IDPAIS'
         DataSource = dsCadastro
         TabOrder = 4
-        OnEnter = dfCdPaisEnter
-        OnExit = dfCdPaisExit
       end
       object dfNmPais: TDBEdit
         Left = 92
@@ -152,5 +153,6 @@ inherited FrmCadastroEstado: TFrmCadastroEstado
   end
   inherited dsCadastro: TDataSource
     DataSet = dmEstado.sqlEstado
+    OnDataChange = FieldadastroDataChange
   end
 end
