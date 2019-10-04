@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
   System.Actions, Vcl.ActnList, FireDac.Comp.Client, uConfiguracaoConsulta,
-  Data.DB, uFrameConsultaPadrao;
+  Data.DB, uFrameConsultaPadrao, FireDAC.Stan.Param;
 
 type
   TModoConsulta = (mcForm, mcFrame);
