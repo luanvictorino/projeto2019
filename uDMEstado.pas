@@ -54,7 +54,7 @@ begin
     procedure(const poCampo: TField)
     begin
       poCampo.DisplayLabel := 'Nome Estado';
-      poCampo.DisplayWidth := 100;
+      poCampo.DisplayWidth := 85;
     end);
   ConfigurarCampo(DataSet, 'nmPais',
     procedure(const poCampo: TField)
@@ -73,6 +73,12 @@ begin
     begin
       poCampo.DisplayLabel := 'Código do País';
       poCampo.Visible := False;
+    end);
+  ConfigurarCampo(DataSet, 'ufEstado',
+    procedure(const poCampo: TField)
+    begin
+      poCampo.DisplayLabel := 'UF';
+      poCampo.DisplayWidth := 10;
     end);
 end;
 

@@ -58,6 +58,7 @@ begin
     oFrmCadastroCidade.DefinirConsulta(oFrmCidadeConsulta);
     oFrmCadastroCidade.ShowModal;
   finally
+    oFrmCidadeConsulta.Release;
     oFrmCadastroCidade.Release;
     FreeAndNil(oDmCidade);
   end;

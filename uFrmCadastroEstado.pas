@@ -22,17 +22,14 @@ type
     dfNmPais: TDBEdit;
     btConsultarPais: TSpeedButton;
     procedure btConsultarPaisClick(Sender: TObject);
-    procedure FieldadastroDataChange(Sender: TObject; Field: TField);
+    procedure dsCadastroDataChange(Sender: TObject; Field: TField);
   private
     function ValidarNmEstado: boolean;
     procedure OnSelecionarPais(const RegistroAtual: TDataSet);
-    procedure SelecionarPais;
     function PegarConsultaPais(const poDmPais: TdmPais): TfrmPaisConsulta;
   protected
     function TestarRegistroValido: boolean; override;
     function PegarCampoChave: string; override;
-  public
-    { Public declarations }
   end;
 
 var
@@ -99,7 +96,15 @@ begin
   end;
 end;
 
-procedure TFrmCadastroEstado.FieldadastroDataChange(Sender: TObject; Field: TField);
+function TFrmCadastroEstado.PegarConsultaPais(const poDmPais: TdmPais): TfrmPaisConsulta;
+begin
+  Result := TfrmPaisConsulta.Create(nil);
+  Result.QueryConsulta := poDmPais.sqlConsulta;
+  Result.OnSelecionarRegistro := OnSelecionarPais;
+end;
+
+procedure TFrmCadastroEstado.dsCadastroDataChange(Sender: TObject;
+  Field: TField);
 var
   oDmPais: TdmPais;
   oFrmPaisConsulta: TfrmPaisConsulta;
@@ -123,18 +128,6 @@ begin
       FreeAndNil(oDmPais);
     end;
   end;
-end;
-
-function TFrmCadastroEstado.PegarConsultaPais(const poDmPais: TdmPais): TfrmPaisConsulta;
-begin
-  Result := TfrmPaisConsulta.Create(nil);
-  Result.QueryConsulta := poDmPais.sqlConsulta;
-  Result.OnSelecionarRegistro := OnSelecionarPais;
-end;
-
-procedure TFrmCadastroEstado.SelecionarPais;
-begin
-  ShowMessage(QueryCadastro.FieldByName('IDPAIS').AsString)
 end;
 
 procedure TFrmCadastroEstado.OnSelecionarPais(const RegistroAtual: TDataSet);

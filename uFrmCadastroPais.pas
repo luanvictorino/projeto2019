@@ -22,9 +22,6 @@ type
   public
   end;
 
-var
-  FrmCadastroPais: TFrmCadastroPais;
-
 implementation
 
 {$R *.dfm}

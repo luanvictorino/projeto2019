@@ -19,17 +19,12 @@ type
     btConsultar: TSpeedButton;
     lbNmEstado: TLabel;
     dfNMEstado: TDBEdit;
-    procedure dfCdEstadoEnter(Sender: TObject);
-    procedure dfCdEstadoExit(Sender: TObject);
     procedure btConsultarClick(Sender: TObject);
+    procedure dsCadastroDataChange(Sender: TObject; Field: TField);
   private
-    FValue: Variant;
     function ValidarNmCidade: boolean;
-    procedure MontarConsultaEstado;
-    function LimparCampoEstado : boolean;
-    procedure VerificaTabelaVazia;
-    procedure PassarNomeEstado;
-    procedure MostrarNomeEstado;
+    procedure OnSelecionarEstado(const RegistroAtual: TDataSet);
+    function PegarConsultaEstado(const poDmEstado: TdmEstado): TfrmEstadoConsulta;
   protected
     function TestarRegistroValido: boolean; override;
     function PegarCampoChave: string; override;
@@ -92,81 +87,65 @@ begin
   end;
 end;
 
-procedure TFrmCadastroCidade.dfCdEstadoEnter(Sender: TObject);
-begin
-  if (Sender is TDBEdit) then
-    Self.FValue := TDBEdit(Sender).Text;
-end;
-
-procedure TFrmCadastroCidade.dfCdEstadoExit(Sender: TObject);
+procedure TFrmCadastroCidade.dsCadastroDataChange(Sender: TObject;
+  Field: TField);
 var
-  bValorCampoIgual : boolean;
+  oDmEstado: TdmEstado;
+  oFrmEstadoConsulta: TfrmEstadoConsulta;
 begin
   inherited;
-  bValorCampoIgual := Self.FValue = TDBEdit(Sender).Text;
-  if bValorCampoIgual then
+  if not Assigned(Field) then
+    Exit;
+  if not(Field.DataSet.State in dsEditModes) then
     Exit;
 
-  MostrarNomeEstado;
-end;
-
-procedure TFrmCadastroCidade.MostrarNomeEstado;
-begin
-  if not LimparCampoEstado then
-    Exit;
-
-  MontarConsultaEstado;
-  VerificaTabelaVazia;
-  PassarNomeEstado;
-end;
-
-function TFrmCadastroCidade.LimparCampoEstado : boolean;
-begin
-  Result := False;
-
-  if dfCdEstado.Text = EmptyStr then
+  if Field.FieldName.ToUpper.Equals('IDESTADO') then
   begin
-    dfNmEstado.Clear;
-    Exit;
-  end;
-  Result := True;
-end;
-
-procedure TFrmCadastroCidade.MontarConsultaEstado;
-var
-  sCampoCdEstado: string;
-begin
-  sCampoCdEstado := dfCdEstado.Text;
-
-  DM.qyBusca.Close;
-  DM.qyBusca.SQL.Clear;
-  DM.qyBusca.SQL.Add('SELECT * FROM ESTADO');
-  DM.qyBusca.SQL.Add('WHERE IDESTADO = :IDESTADO');
-  DM.qyBusca.ParamByName('IDESTADO').AsString := sCampoCdEstado;
-  DM.qyBusca.Open;
-end;
-
-procedure TFrmCadastroCidade.VerificaTabelaVazia;
-begin
-  if DM.qyBusca.IsEmpty then
-  begin
-    ShowMessage('Estado não escontrado!');
-    dfNmEstado.Clear;
-    dfNmEstado.SetFocus;
+    if Field.NewValue = Field.OldValue then
+      Exit;
+    oDmEstado := TdmEstado.Create(nil);
+    oFrmEstadoConsulta := PegarConsultaEstado(oDmEstado);
+    try
+      oFrmEstadoConsulta.SelecionarID('IDESTADO', Field.AsInteger)
+    finally
+      oFrmEstadoConsulta.Release;
+      FreeAndNil(oDmEstado);
+    end;
   end;
 end;
 
-procedure TFrmCadastroCidade.PassarNomeEstado;
+procedure TFrmCadastroCidade.OnSelecionarEstado(const RegistroAtual: TDataSet);
 var
-  sCampo : String;
+  oIdEstadoOrigem: TField;
+  oNmEstadoOrigem: TField;
+  oIdEstadoDestino: TField;
+  oNmEstadoDestino: TField;
 begin
-  sCampo := DM.qyBusca.FieldByName('NMESTADO').AsString;
-  dfNmEstado.Text := sCampo;
+  QueryCadastro.Edit;
+
+  oIdEstadoOrigem := RegistroAtual.FieldByName('idEstado');
+  oNmEstadoOrigem := RegistroAtual.FieldByName('nmEstado');
+  oIdEstadoDestino := QueryCadastro.FieldByName('idEstado');
+  oNmEstadoDestino := QueryCadastro.FieldByName('nmEstado');
+
+  if oIdEstadoOrigem.AsInteger <> oIdEstadoDestino.AsInteger then
+    oIdEstadoDestino.Assign(oIdEstadoOrigem);
+
+  if oNmEstadoOrigem.AsString <> oNmEstadoDestino.AsString then
+    oNmEstadoDestino.Assign(oNmEstadoOrigem);
 end;
 
 function TFrmCadastroCidade.PegarCampoChave: string;
 begin
   Result := 'IDCIDADE'
+end;
+
+function TFrmCadastroCidade.PegarConsultaEstado(
+  const poDmEstado: TdmEstado): TfrmEstadoConsulta;
+begin
+  Result := TfrmEstadoConsulta.Create(nil);
+  Result.QueryConsulta := poDmEstado.sqlConsulta;
+  Result.OnSelecionarRegistro := OnSelecionarEstado;
 end;
 
 end.

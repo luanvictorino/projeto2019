@@ -153,6 +153,6 @@ inherited FrmCadastroEstado: TFrmCadastroEstado
   end
   inherited dsCadastro: TDataSource
     DataSet = dmEstado.sqlEstado
-    OnDataChange = FieldadastroDataChange
+    OnDataChange = dsCadastroDataChange
   end
 end

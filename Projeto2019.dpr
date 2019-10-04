@@ -28,8 +28,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TfMenuPrincipal, fMenuPrincipal);
-  Application.CreateForm(TFrmCadastroPais, FrmCadastroPais);
-  Application.CreateForm(TFrmEstadoConsulta, FrmEstadoConsulta);
-  Application.CreateForm(TFrmCidadeConsulta, FrmCidadeConsulta);
   Application.Run;
 end.

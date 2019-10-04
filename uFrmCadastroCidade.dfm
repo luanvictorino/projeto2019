@@ -5,10 +5,10 @@ inherited FrmCadastroCidade: TFrmCadastroCidade
   inherited pgPadrao: TPageControl
     ActivePage = tsCadastroPadrao
     inherited tsConsPadrao: TTabSheet
-      ExplicitWidth = 851
-      inherited pnConsPadrao: TPanel
-        ExplicitWidth = 851
-      end
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 647
+      ExplicitHeight = 347
     end
     inherited tsCadastroPadrao: TTabSheet
       ExplicitLeft = 4
@@ -115,8 +115,6 @@ inherited FrmCadastroCidade: TFrmCadastroCidade
         DataField = 'IDESTADO'
         DataSource = dsCadastro
         TabOrder = 3
-        OnEnter = dfCdEstadoEnter
-        OnExit = dfCdEstadoExit
       end
       object dfNMEstado: TDBEdit
         Left = 92
@@ -134,6 +132,7 @@ inherited FrmCadastroCidade: TFrmCadastroCidade
   end
   inherited dsCadastro: TDataSource
     DataSet = dmCidade.sqlCidade
+    OnDataChange = dsCadastroDataChange
     Left = 484
   end
 end

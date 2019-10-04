@@ -1,8 +1,5 @@
 inherited dmEstado: TdmEstado
   OldCreateOrder = True
-  inherited Conexao: TFDConnection
-    Connected = True
-  end
   inherited sqlConsulta: TFDQuery
     AfterOpen = sqlConsultaAfterOpen
     SQL.Strings = (
