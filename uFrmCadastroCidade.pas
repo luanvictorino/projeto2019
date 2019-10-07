@@ -73,13 +73,12 @@ end;
 
 procedure TFrmCadastroCidade.btConsultarClick(Sender: TObject);
 var
-  oFrmEstadoConsulta: TFrmEstadoConsulta;
+  oFrmEstadoConsulta: TfrmEstadoConsulta;
   oDmEstado: TdmEstado;
 begin
-  oFrmEstadoConsulta := TFrmEstadoConsulta.Create(nil);
-  oDmEstado := TDmEstado.Create(nil);
+  oDmEstado := TdmEstado.Create(nil);
+  oFrmEstadoConsulta := PegarConsultaEstado(oDmEstado);
   try
-    oFrmEstadoConsulta.QueryConsulta := oDmEstado.sqlConsulta;
     oFrmEstadoConsulta.ShowModal;
   finally
     oFrmEstadoConsulta.Release;
@@ -87,8 +86,7 @@ begin
   end;
 end;
 
-procedure TFrmCadastroCidade.dsCadastroDataChange(Sender: TObject;
-  Field: TField);
+procedure TFrmCadastroCidade.dsCadastroDataChange(Sender: TObject; Field: TField);
 var
   oDmEstado: TdmEstado;
   oFrmEstadoConsulta: TfrmEstadoConsulta;
@@ -96,6 +94,7 @@ begin
   inherited;
   if not Assigned(Field) then
     Exit;
+
   if not(Field.DataSet.State in dsEditModes) then
     Exit;
 
@@ -140,8 +139,7 @@ begin
   Result := 'IDCIDADE'
 end;
 
-function TFrmCadastroCidade.PegarConsultaEstado(
-  const poDmEstado: TdmEstado): TfrmEstadoConsulta;
+function TFrmCadastroCidade.PegarConsultaEstado(const poDmEstado: TdmEstado): TfrmEstadoConsulta;
 begin
   Result := TfrmEstadoConsulta.Create(nil);
   Result.QueryConsulta := poDmEstado.sqlConsulta;
