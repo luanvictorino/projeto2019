@@ -32,9 +32,6 @@ type
     function PegarCampoChave: string; override;
   end;
 
-var
-  FrmCadastroEstado: TFrmCadastroEstado;
-
 implementation
 
 {$R *.dfm}
@@ -45,23 +42,6 @@ uses
 function TFrmCadastroEstado.PegarCampoChave: string;
 begin
   Result := 'IDESTADO'
-end;
-
-function TFrmCadastroEstado.TestarRegistroValido: boolean;
-begin
-  Result := false;
-
-  if not ValidarNmEstado then
-    Exit;
-
-  if dfCdPais.Text = '' then
-  begin
-    ShowMessage('Campo obrigatório não preenchido!');
-    dfCdPais.SetFocus;
-    Exit;
-  end;
-
-  Result := True;
 end;
 
 function TFrmCadastroEstado.ValidarNmEstado: boolean;
@@ -77,6 +57,33 @@ begin
   oField.FocusControl;
 
   Result := false;
+end;
+
+function TFrmCadastroEstado.TestarRegistroValido: boolean;
+var
+  oField: TField;
+begin
+  Result := True;
+  oField := QueryCadastro.FieldByName('idPais');
+  if not oField.AsString.Trim.IsEmpty then
+    Exit;
+
+  ShowMessage('Campo obrigatório não preenchido!');
+  oField.FocusControl;
+
+  Result := false;
+
+  {if not ValidarNmEstado then
+    Exit;
+
+  if dfCdPais.Text = '' then
+  begin
+    ShowMessage('Campo obrigatório não preenchido!');
+    dfCdPais.SetFocus;
+    Exit;
+  end;
+
+  Result := True;}
 end;
 
 procedure TFrmCadastroEstado.btConsultarPaisClick(Sender: TObject);

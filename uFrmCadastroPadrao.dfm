@@ -46,10 +46,6 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
     object tsCadastroPadrao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 640
-      ExplicitHeight = 0
       object pnCadastroPadrao: TPanel
         Left = 0
         Top = 306
@@ -57,7 +53,6 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
         Height = 41
         Align = alBottom
         TabOrder = 0
-        ExplicitWidth = 640
         object btSalvar: TBitBtn
           Left = 3
           Top = 6

@@ -4,12 +4,6 @@ inherited FrmCadastroEstado: TFrmCadastroEstado
   TextHeight = 13
   inherited pgPadrao: TPageControl
     ActivePage = tsCadastroPadrao
-    inherited tsConsPadrao: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 647
-      ExplicitHeight = 347
-    end
     inherited tsCadastroPadrao: TTabSheet
       Hint = 'Pressione CTRL+ENTER para pesquisar pelo ID'
       ParentShowHint = False
@@ -95,9 +89,6 @@ inherited FrmCadastroEstado: TFrmCadastroEstado
           FFFFFFCFCFCF545454050505000000131313717171E2E2E2FFFFFFFFFFFFFFFF
           FFFFFFFFFFFFFFFFFFFFFFFFFF00}
         OnClick = btConsultarPaisClick
-      end
-      inherited pnCadastroPadrao: TPanel
-        ExplicitWidth = 647
       end
       object dfCdEstado: TDBEdit
         Left = 12

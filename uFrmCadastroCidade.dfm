@@ -4,17 +4,7 @@ inherited FrmCadastroCidade: TFrmCadastroCidade
   TextHeight = 13
   inherited pgPadrao: TPageControl
     ActivePage = tsCadastroPadrao
-    inherited tsConsPadrao: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 647
-      ExplicitHeight = 347
-    end
     inherited tsCadastroPadrao: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 647
-      ExplicitHeight = 347
       object lbCdCidade: TLabel [0]
         Left = 12
         Top = 5
@@ -83,9 +73,6 @@ inherited FrmCadastroCidade: TFrmCadastroCidade
         Width = 33
         Height = 13
         Caption = 'Estado'
-      end
-      inherited pnCadastroPadrao: TPanel
-        ExplicitWidth = 647
       end
       object dfCdCidade: TDBEdit
         Left = 12
