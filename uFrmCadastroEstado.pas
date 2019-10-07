@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrmCadastroPadrao, Data.DB, Vcl.StdCtrls,
   Vcl.Buttons, Vcl.ExtCtrls, Vcl.ComCtrls, uDMEstado, Vcl.Mask,
-  Vcl.DBCtrls, uFrmPaisConsulta, uDMPais;
+  Vcl.DBCtrls, uFrmConsultaPais, uDMPais;
 
 type
   TFrmCadastroEstado = class(TFrmCadastroPadrao)
@@ -26,7 +26,7 @@ type
   private
     function ValidarNmEstado: boolean;
     procedure OnSelecionarPais(const RegistroAtual: TDataSet);
-    function PegarConsultaPais(const poDmPais: TdmPais): TfrmPaisConsulta;
+    function PegarConsultaPais(const poDmPais: TdmPais): TfrmConsultaPais;
   protected
     function TestarRegistroValido: boolean; override;
     function PegarCampoChave: string; override;
@@ -88,7 +88,7 @@ end;
 
 procedure TFrmCadastroEstado.btConsultarPaisClick(Sender: TObject);
 var
-  oFrmPaisConsulta: TfrmPaisConsulta;
+  oFrmPaisConsulta: TfrmConsultaPais;
   oDmPais: TdmPais;
 begin
   if not(QueryCadastro.State in dsEditModes) then
@@ -103,9 +103,9 @@ begin
   end;
 end;
 
-function TFrmCadastroEstado.PegarConsultaPais(const poDmPais: TdmPais): TfrmPaisConsulta;
+function TFrmCadastroEstado.PegarConsultaPais(const poDmPais: TdmPais): TfrmConsultaPais;
 begin
-  Result := TfrmPaisConsulta.Create(nil);
+  Result := TfrmConsultaPais.Create(nil);
   Result.QueryConsulta := poDmPais.sqlConsulta;
   Result.OnSelecionarRegistro := OnSelecionarPais;
 end;
@@ -114,11 +114,12 @@ procedure TFrmCadastroEstado.dsCadastroDataChange(Sender: TObject;
   Field: TField);
 var
   oDmPais: TdmPais;
-  oFrmPaisConsulta: TfrmPaisConsulta;
+  oFrmPaisConsulta: TfrmConsultaPais;
 begin
   inherited;
   if not Assigned(Field) then
     Exit;
+
   if not(Field.DataSet.State in dsEditModes) then
     Exit;
 

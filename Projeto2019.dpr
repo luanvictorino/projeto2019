@@ -16,10 +16,10 @@ uses
   uFrmCadastroEstado in 'uFrmCadastroEstado.pas' {FrmCadastroEstado},
   uDMEstado in 'uDMEstado.pas' {dmEstado: TDataModule},
   uFrmConsultaPadrao in 'uFrmConsultaPadrao.pas' {FrmConsultaPadrao},
-  uFrmPaisConsulta in 'uFrmPaisConsulta.pas' {FrmPaisConsulta},
+  uFrmConsultaPais in 'uFrmConsultaPais.pas' {FrmConsultaPais},
   uFrmCadastroPais in 'uFrmCadastroPais.pas' {FrmCadastroPais},
-  uFrmEstadoConsulta in 'uFrmEstadoConsulta.pas' {FrmEstadoConsulta},
-  uFrmCidadeConsulta in 'uFrmCidadeConsulta.pas' {FrmCidadeConsulta};
+  uFrmConsultaEstado in 'uFrmConsultaEstado.pas' {FrmConsultaEstado},
+  uFrmConsultaCidade in 'uFrmConsultaCidade.pas' {FrmConsultaCidade};
 
 {$R *.res}
 

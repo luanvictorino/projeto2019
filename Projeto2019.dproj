@@ -160,20 +160,20 @@
             <Form>FrmConsultaPadrao</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uFrmPaisConsulta.pas">
-            <Form>FrmPaisConsulta</Form>
+        <DCCReference Include="uFrmConsultaPais.pas">
+            <Form>FrmConsultaPais</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uFrmCadastroPais.pas">
             <Form>FrmCadastroPais</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uFrmEstadoConsulta.pas">
-            <Form>FrmEstadoConsulta</Form>
+        <DCCReference Include="uFrmConsultaEstado.pas">
+            <Form>FrmConsultaEstado</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uFrmCidadeConsulta.pas">
-            <Form>FrmCidadeConsulta</Form>
+        <DCCReference Include="uFrmConsultaCidade.pas">
+            <Form>FrmConsultaCidade</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <None Include="Projeto2019.todo"/>

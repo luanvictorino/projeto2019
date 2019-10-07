@@ -7,8 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus,
   Vcl.Imaging.pngimage, Vcl.ExtCtrls, Data.DB, Vcl.Grids,
   Vcl.DBGrids, Vcl.StdCtrls, Vcl.ComCtrls, uCadPessoa, uDMCidade, uDMPais,
-  uDMEstado, uFrmPaisConsulta, uFrmCadastroPais,
-  uFrmCadastroEstado, uFrmEstadoConsulta, uFrmCadastroCidade, uFrmCidadeConsulta;
+  uDMEstado, uFrmConsultaPais, uFrmCadastroPais,
+  uFrmCadastroEstado, uFrmConsultaEstado, uFrmCadastroCidade, uFrmConsultaCidade;
 
 type
   TfMenuPrincipal = class(TForm)
@@ -47,10 +47,10 @@ procedure TfMenuPrincipal.imCidadeClick(Sender: TObject);
 var
   oFrmCadastroCidade: TFrmCadastroCidade;
   oDmCidade: TdmCidade;
-  oFrmCidadeConsulta: TFrmCidadeConsulta;
+  oFrmCidadeConsulta: TFrmConsultaCidade;
 begin
   oFrmCadastroCidade := TFrmCadastroCidade.Create(nil);
-  oFrmCidadeConsulta := TFrmCidadeConsulta.Create(nil);
+  oFrmCidadeConsulta := TFrmConsultaCidade.Create(nil);
   oDmCidade := TdmCidade.Create(Nil);
   try
     oFrmCidadeConsulta.QueryConsulta := oDmCidade.sqlConsulta;
@@ -68,10 +68,10 @@ procedure TfMenuPrincipal.imEstadoClick(Sender: TObject);
 var
   oFrmCadastroEstado: TFrmCadastroEstado;
   oDmEstado: TdmEstado;
-  oFrmEstadoConsulta: TFrmEstadoConsulta;
+  oFrmEstadoConsulta: TFrmConsultaEstado;
 begin
   oFrmCadastroEstado := TFrmCadastroEstado.Create(nil);
-  oFrmEstadoConsulta := TFrmEstadoConsulta.Create(nil);
+  oFrmEstadoConsulta := TFrmConsultaEstado.Create(nil);
   oDmEstado := TDmEstado.Create(nil);
   try
     oFrmEstadoConsulta.QueryConsulta := oDmEstado.sqlConsulta;
@@ -89,10 +89,10 @@ procedure TfMenuPrincipal.imPaisClick(Sender: TObject);
 var
   oFrmCadastroPais: TFrmCadastroPais;
   oDmPais: TdmPais;
-  oFrmPaisConsulta: TFrmPaisConsulta;
+  oFrmPaisConsulta: TFrmConsultaPais;
 begin
   oFrmCadastroPais := TFrmCadastroPais.Create(nil);
-  oFrmPaisConsulta := TFrmPaisConsulta.Create(nil);
+  oFrmPaisConsulta := TFrmConsultaPais.Create(nil);
   oDmPais := TdmPais.Create(nil);
   try
     oFrmPaisConsulta.QueryConsulta := oDmPais.sqlConsulta;

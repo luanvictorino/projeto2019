@@ -1,4 +1,4 @@
-unit uFrmCidadeConsulta;
+unit uFrmConsultaPais;
 
 interface
 
@@ -9,7 +9,7 @@ uses
   uFrameConsultaPadrao;
 
 type
-  TFrmCidadeConsulta = class(TFrmConsultaPadrao)
+  TFrmConsultaPais = class(TFrmConsultaPadrao)
   private
   protected
     procedure ConfigurarFmeConsulta; override;
@@ -17,23 +17,21 @@ type
   end;
 
 var
-  FrmCidadeConsulta: TFrmCidadeConsulta;
+  FrmConsultaPais: TFrmConsultaPais;
 
 implementation
 
 {$R *.dfm}
 
-{ TFrmCidadeConsulta }
-
-procedure TFrmCidadeConsulta.ConfigurarFmeConsulta;
+procedure TFrmConsultaPais.ConfigurarFmeConsulta;
 var
   rConfiguracaoConsulta: TConfiguracaoConsulta;
 begin
   inherited;
-  rConfiguracaoConsulta.NomeTabela := 'CIDADE';
-  rConfiguracaoConsulta.CampoBusca := 'NMCIDADE';
-  rConfiguracaoConsulta.CampoChave := 'IDCIDADE';
-  rConfiguracaoConsulta.Caption := 'Consulta de Cidade por nome';
+  rConfiguracaoConsulta.NomeTabela := 'PAIS';
+  rConfiguracaoConsulta.CampoBusca := 'NMPAIS';
+  rConfiguracaoConsulta.CampoChave := 'IDPAIS';
+  rConfiguracaoConsulta.Caption := 'Consulta de País por nome';
   DefinirConfiguracoesConsulta(rConfiguracaoConsulta);
 end;
 

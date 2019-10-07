@@ -1,4 +1,4 @@
-unit uFrmEstadoConsulta;
+unit uFrmConsultaEstado;
 
 interface
 
@@ -9,7 +9,7 @@ uses
   uFrameConsultaPadrao;
 
 type
-  TFrmEstadoConsulta = class(TFrmConsultaPadrao)
+  TFrmConsultaEstado = class(TFrmConsultaPadrao)
   private
   protected
     procedure ConfigurarFmeConsulta; override;
@@ -17,13 +17,13 @@ type
   end;
 
 var
-  FrmEstadoConsulta: TFrmEstadoConsulta;
+  FrmConsultaEstado: TFrmConsultaEstado;
 
 implementation
 
 {$R *.dfm}
 
-procedure TFrmEstadoConsulta.ConfigurarFmeConsulta;
+procedure TFrmConsultaEstado.ConfigurarFmeConsulta;
 var
   rConfiguracaoConsulta: TConfiguracaoConsulta;
 begin

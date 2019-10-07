@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrmCadastroPadrao, Data.DB, Vcl.StdCtrls,
   Vcl.Mask, Vcl.DBCtrls, Vcl.Buttons, Vcl.ExtCtrls, Vcl.ComCtrls, uDM,
-  uDMCidade, uFrmEstadoConsulta, uDMEstado;
+  uDMCidade, uFrmConsultaEstado, uDMEstado;
 
 type
   TFrmCadastroCidade = class(TFrmCadastroPadrao)
@@ -24,7 +24,7 @@ type
   private
     function ValidarNmCidade: boolean;
     procedure OnSelecionarEstado(const RegistroAtual: TDataSet);
-    function PegarConsultaEstado(const poDmEstado: TdmEstado): TfrmEstadoConsulta;
+    function PegarConsultaEstado(const poDmEstado: TdmEstado): TfrmConsultaEstado;
   protected
     function TestarRegistroValido: boolean; override;
     function PegarCampoChave: string; override;
@@ -73,7 +73,7 @@ end;
 
 procedure TFrmCadastroCidade.btConsultarClick(Sender: TObject);
 var
-  oFrmEstadoConsulta: TfrmEstadoConsulta;
+  oFrmEstadoConsulta: TfrmConsultaEstado;
   oDmEstado: TdmEstado;
 begin
   oDmEstado := TdmEstado.Create(nil);
@@ -89,7 +89,7 @@ end;
 procedure TFrmCadastroCidade.dsCadastroDataChange(Sender: TObject; Field: TField);
 var
   oDmEstado: TdmEstado;
-  oFrmEstadoConsulta: TfrmEstadoConsulta;
+  oFrmEstadoConsulta: TfrmConsultaEstado;
 begin
   inherited;
   if not Assigned(Field) then
@@ -139,9 +139,9 @@ begin
   Result := 'IDCIDADE'
 end;
 
-function TFrmCadastroCidade.PegarConsultaEstado(const poDmEstado: TdmEstado): TfrmEstadoConsulta;
+function TFrmCadastroCidade.PegarConsultaEstado(const poDmEstado: TdmEstado): TfrmConsultaEstado;
 begin
-  Result := TfrmEstadoConsulta.Create(nil);
+  Result := TfrmConsultaEstado.Create(nil);
   Result.QueryConsulta := poDmEstado.sqlConsulta;
   Result.OnSelecionarRegistro := OnSelecionarEstado;
 end;
