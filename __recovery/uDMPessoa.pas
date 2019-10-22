@@ -11,6 +11,8 @@ uses
   FireDAC.Comp.Client;
 
 type
+
+
   TdmPessoa = class(TDataModulePadrao)
     sqlPessoa: TFDQuery;
     sqlFuncionario: TFDQuery;
@@ -72,7 +74,7 @@ begin
   ConfigurarCampo(DataSet, 'idPessoa',
     procedure(const poCampo: TField)
     begin
-      poCampo.DisplayLabel := 'Código da Pessoa';
+      poCampo.DisplayLabel := 'CÃ³digo da Pessoa';
       poCampo.Visible := False;
     end);
   ConfigurarCampo(DataSet, 'nuCelular',
@@ -96,7 +98,7 @@ begin
   ConfigurarCampo(DataSet, 'idCidade',
     procedure(const poCampo: TField)
     begin
-      poCampo.DisplayLabel := 'Cód. da Cidade';
+      poCampo.DisplayLabel := 'CÃ³d. da Cidade';
       poCampo.DisplayWidth := 5;
     end);
   ConfigurarCampo(DataSet, 'DtNascimento',

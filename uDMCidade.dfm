@@ -26,8 +26,8 @@ inherited dmCidade: TdmCidade
       'from CIDADE'
       '  left join ESTADO on ESTADO.IDESTADO = CIDADE.IDESTADO'
       'where idCidade = :idCidade')
-    Left = 64
-    Top = 88
+    Left = 312
+    Top = 16
     ParamData = <
       item
         Name = 'IDCIDADE'

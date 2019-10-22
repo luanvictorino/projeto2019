@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
-  Vcl.ComCtrls, Data.DB, uDM, Vcl.Mask, Vcl.DBCtrls, FireDAC.Stan.Param,
+  Vcl.ComCtrls, Data.DB, Vcl.Mask, Vcl.DBCtrls, FireDAC.Stan.Param,
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, uConfiguracaoConsulta, uFrmConsultaPadrao;
@@ -33,15 +33,16 @@ type
   private
     FQueryCadastro: TFDQuery;
     procedure SetQueryCadastro(const Value: TFDQuery);
-    procedure InserirNovoRegistro; virtual;
-    procedure SalvarRegistro; virtual;
-    procedure CancelarRegistro; virtual;
-    function ComitarAlteracoes: boolean; virtual;
     procedure ExcluirRegistro;
     procedure LigarDesligarBotoes;
     function ComitarSchemaAdapter: boolean;
     function ComitarQuery: boolean;
+    procedure SalvarRegistro; virtual;
   protected
+    procedure InserirNovoRegistro; virtual;
+    procedure CancelarRegistro; virtual;
+    procedure SalvarQryDetalhes; virtual;
+    function ComitarAlteracoes: boolean; virtual;
     function TestarRegistroValido: boolean; virtual; abstract;
     function PegarCampoChave: string; virtual; abstract;
   public
@@ -140,10 +141,17 @@ begin
   pgPadrao.ActivePage := tsCadastroPadrao;
 end;
 
+procedure TFrmCadastroPadrao.SalvarQryDetalhes;
+begin
+  Exit;
+end;
+
 procedure TFrmCadastroPadrao.SalvarRegistro;
 begin
   if not TestarRegistroValido then
     Exit;
+
+  SalvarQryDetalhes;
 
   if QueryCadastro.State in dsEditModes then
     QueryCadastro.Post;
@@ -198,7 +206,7 @@ end;
 
 procedure TFrmCadastroPadrao.LigarDesligarBotoes;
 begin
-  btNovo.Enabled := dsCadastro.State in [dsBrowse];
+  btNovo.Enabled := dsCadastro.State in [dsBrowse, dsInsert, dsEdit];
   btSalvar.Enabled := dsCadastro.State in dsEditModes;
   btCancelar.Enabled := dsCadastro.State in dsEditModes;
   btExcluir.Enabled := dsCadastro.State in [dsEdit];

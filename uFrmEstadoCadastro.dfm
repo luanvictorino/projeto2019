@@ -1,17 +1,17 @@
-inherited FrmCadastroEstado: TFrmCadastroEstado
+inherited FrmEstadoCadastro: TFrmEstadoCadastro
   Caption = 'Cadastro de Estado'
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
-    ActivePage = tsCadastroPadrao
-    inherited tsCadastroPadrao: TTabSheet
-      Hint = 'Pressione CTRL+ENTER para pesquisar pelo ID'
-      ParentShowHint = False
-      ShowHint = True
+    inherited tsConsPadrao: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
       ExplicitWidth = 647
       ExplicitHeight = 347
+    end
+    inherited tsCadastroPadrao: TTabSheet
+      ParentShowHint = False
+      ShowHint = True
       object lbCdEstado: TLabel [0]
         Left = 12
         Top = 5
@@ -125,6 +125,7 @@ inherited FrmCadastroEstado: TFrmCadastroEstado
         Top = 140
         Width = 50
         Height = 21
+        Hint = 'Pressione CTRL+ENTER para pesquisar pelo ID'
         DataField = 'IDPAIS'
         DataSource = dsCadastro
         TabOrder = 4

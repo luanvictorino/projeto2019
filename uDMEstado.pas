@@ -22,13 +22,7 @@ type
     procedure sqlConsultaAfterOpen(DataSet: TDataSet);
   private
     procedure ConfigurarMetaData(const DataSet: TDataSet);
-    { Private declarations }
-  public
-    { Public declarations }
   end;
-
-var
-  dmEstado: TdmEstado;
 
 implementation
 

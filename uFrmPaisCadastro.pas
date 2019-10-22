@@ -1,4 +1,4 @@
-unit uFrmCadastroPais;
+unit uFrmPaisCadastro;
 
 interface
 
@@ -9,13 +9,12 @@ uses
   Vcl.DBCtrls;
 
 type
-  TFrmCadastroPais = class(TFrmCadastroPadrao)
+  TFrmPaisCadastro = class(TFrmCadastroPadrao)
     lbCdPais: TLabel;
     dfCdPais: TDBEdit;
     lbNmPais: TLabel;
     dfNmPais: TDBEdit;
   private
-    function ValidarNmPais: boolean;
   protected
     function TestarRegistroValido : Boolean; override;
     function PegarCampoChave: string; override;
@@ -29,22 +28,12 @@ implementation
 uses
   uConfiguracaoConsulta;
 
-function TFrmCadastroPais.PegarCampoChave: string;
+function TFrmPaisCadastro.PegarCampoChave: string;
 begin
   Result := 'IDPAIS'
 end;
 
-function TFrmCadastroPais.TestarRegistroValido: Boolean;
-begin
-  Result := False;
-
-  if not validarNmPais then
-    Exit;
-
-  Result := True;
-end;
-
-function TFrmCadastroPais.ValidarNmPais: boolean;
+function TFrmPaisCadastro.TestarRegistroValido: Boolean;
 var
   oField: TField;
 begin
@@ -56,7 +45,7 @@ begin
   ShowMessage('Campo obrigatório não preenchido!');
   oField.FocusControl;
 
-  Result := false;
+  Result := False;
 end;
 
 end.

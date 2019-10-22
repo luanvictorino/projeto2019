@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
   System.Actions, Vcl.ActnList, FireDac.Comp.Client, uConfiguracaoConsulta,
-  Data.DB, uFrameConsultaPadrao, FireDAC.Stan.Param;
+  Data.DB, uFrameConsultaPadrao, FireDac.Stan.Param;
 
 type
   TModoConsulta = (mcForm, mcFrame);
@@ -23,6 +23,7 @@ type
     procedure actConsultarExecute(Sender: TObject);
     procedure actFecharExecute(Sender: TObject);
     procedure actSelecionarExecute(Sender: TObject);
+    procedure fmeConsultabtConsultarClick(Sender: TObject);
   private
     FModoConsulta: TModoConsulta;
     FOnSelecionarRegistro: TOnSelecionarRegistro;
@@ -31,6 +32,7 @@ type
     function GetOnSelecionarRegistro: TOnSelecionarRegistro;
     procedure SetOnSelecionarRegistro(const Value: TOnSelecionarRegistro);
     procedure OnSelecionarRegistroInternal(const RegistroSelecionado: TDataSet);
+    function TestarPesquisaJaEfetuada(const psCampoPesquisa: string; const pnID: Integer): boolean;
   protected
     function PegarNomeTabelaConsulta: string; virtual;
     function PegarModoConsulta: TModoConsulta;
@@ -39,7 +41,7 @@ type
     procedure DefinirConfiguracoesConsulta(const ConfiguracaoConsulta: TConfiguracaoConsulta);
   public
     procedure AfterConstruction; override;
-    function SelecionarID(const psCampoPesquisa: string; const pnID: integer): boolean;
+    function SelecionarID(const psCampoPesquisa: string; const pnID: Integer): boolean;
     procedure DefinirModo(const ModoConsulta: TModoConsulta);
     property QueryConsulta: TFDQuery read GetQueryConsulta write SetQueryConsulta;
     property OnSelecionarRegistro: TOnSelecionarRegistro read GetOnSelecionarRegistro write SetOnSelecionarRegistro;
@@ -48,6 +50,13 @@ type
 implementation
 
 {$R *.dfm}
+{$REGION 'Eventos de tela'}
+
+procedure TFrmConsultaPadrao.AfterConstruction;
+begin
+  inherited;
+  ConfigurarFmeConsulta;
+end;
 
 procedure TFrmConsultaPadrao.actConsultarExecute(Sender: TObject);
 begin
@@ -66,11 +75,7 @@ begin
   ModalResult := mrOk;
 end;
 
-procedure TFrmConsultaPadrao.AfterConstruction;
-begin
-  inherited;
-  ConfigurarFmeConsulta;
-end;
+{$ENDREGION}
 
 procedure TFrmConsultaPadrao.DefinirConfiguracoesConsulta(const ConfiguracaoConsulta: TConfiguracaoConsulta);
 begin
@@ -87,7 +92,13 @@ begin
   pnlControles.Visible := ModoConsulta = mcForm;
 end;
 
-function TFrmConsultaPadrao.SelecionarID(const psCampoPesquisa: string; const pnID: integer): boolean;
+procedure TFrmConsultaPadrao.fmeConsultabtConsultarClick(Sender: TObject);
+begin
+  fmeConsulta.btConsultarClick(Sender);
+
+end;
+
+function TFrmConsultaPadrao.SelecionarID(const psCampoPesquisa: string; const pnID: Integer): boolean;
 const
   SQL_PESQUISA = 'select * from %s where %s = :ID';
 var
@@ -97,6 +108,12 @@ begin
   sNomeTabela := PegarNomeTabelaConsulta;
   if sNomeTabela.Trim.IsEmpty then
     raise EArgumentException.Create('Não foi possível determinar o nome da tabela para pesquisa.');
+
+  if TestarPesquisaJaEfetuada(psCampoPesquisa, pnID) then
+  begin
+    Result := True;
+    Exit;
+  end;
 
   sSQL := QueryConsulta.SQL.Text;
   Result := False;
@@ -116,10 +133,34 @@ begin
   end;
 end;
 
+function TFrmConsultaPadrao.PegarNomeTabelaConsulta: string;
+begin
+  Result := QueryConsulta.UpdateOptions.UpdateTableName;
+  if not Result.Trim.IsEmpty then
+    Exit;
+  Result := (QueryConsulta as IProviderSupportNG).PSGetTableName;
+end;
+
+function TFrmConsultaPadrao.TestarPesquisaJaEfetuada(const psCampoPesquisa: string; const pnID: Integer): boolean;
+var
+  oCampoPesquisa: TField;
+begin
+  Result := False;
+  if not QueryConsulta.Active then
+    Exit;
+
+  oCampoPesquisa := QueryConsulta.FindField(psCampoPesquisa);
+
+  if not Assigned(oCampoPesquisa) then
+    Exit;
+
+  Result := oCampoPesquisa.AsInteger = pnID;
+end;
+
 procedure TFrmConsultaPadrao.SelecionarRegistroInternal;
 begin
-  if PegarModoConsulta = mcForm then
-    ModalResult := mrOk;
+  fmeConsulta.SelecionarRegistro;
+
 end;
 
 function TFrmConsultaPadrao.GetOnSelecionarRegistro: TOnSelecionarRegistro;
@@ -132,25 +173,17 @@ begin
   Result := fmeConsulta.QueryConsulta;
 end;
 
-procedure TFrmConsultaPadrao.OnSelecionarRegistroInternal(
-  const RegistroSelecionado: TDataSet);
+procedure TFrmConsultaPadrao.OnSelecionarRegistroInternal(const RegistroSelecionado: TDataSet);
 begin
   if Assigned(FOnSelecionarRegistro) then
     FOnSelecionarRegistro(RegistroSelecionado);
-  SelecionarRegistroInternal;
+  if PegarModoConsulta = mcForm then
+    ModalResult := mrOk;
 end;
 
 function TFrmConsultaPadrao.PegarModoConsulta: TModoConsulta;
 begin
   Result := FModoConsulta;
-end;
-
-function TFrmConsultaPadrao.PegarNomeTabelaConsulta: string;
-begin
-  Result := QueryConsulta.UpdateOptions.UpdateTableName;
-  if not Result.Trim.IsEmpty then
-    Exit;
-  Result := (QueryConsulta as IProviderSupportNG).PSGetTableName;
 end;
 
 procedure TFrmConsultaPadrao.SetOnSelecionarRegistro(const Value: TOnSelecionarRegistro);

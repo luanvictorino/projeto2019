@@ -1,48 +1,48 @@
-inherited dmPais: TdmPais
+inherited dmFuncao: TdmFuncao
   OldCreateOrder = True
   inherited sqlConsulta: TFDQuery
     AfterOpen = sqlConsultaAfterOpen
     SQL.Strings = (
-      'select *'
-      'from pais'
-      'where nmPais like :nmPais')
+      'SELECT * FROM FUNCAO'
+      'WHERE NMFUNCAO LIKE :NMFUNCAO')
+    Left = 256
     Top = 8
     ParamData = <
       item
-        Name = 'NMPAIS'
+        Name = 'NMFUNCAO'
         DataType = ftString
         ParamType = ptInput
         Size = 150
         Value = Null
       end>
   end
-  object sqlPais: TFDQuery
-    AfterOpen = sqlPaisAfterOpen
+  object sqlFuncao: TFDQuery
+    AfterOpen = sqlFuncaoAfterOpen
     CachedUpdates = True
     Connection = Conexao
-    UpdateOptions.KeyFields = 'IDPAIS'
-    UpdateOptions.AutoIncFields = 'IDPAIS'
+    UpdateOptions.KeyFields = 'IDFUNCAO'
+    UpdateOptions.AutoIncFields = 'IDFUNCAO'
     SQL.Strings = (
-      'SELECT * FROM PAIS'
-      'WHERE IDPAIS = :IDPAIS')
-    Left = 312
+      'SELECT * FROM FUNCAO'
+      'WHERE IDFUNCAO = :IDFUNCAO')
+    Left = 320
     Top = 8
     ParamData = <
       item
-        Name = 'IDPAIS'
+        Name = 'IDFUNCAO'
         DataType = ftInteger
         ParamType = ptInput
         Value = Null
       end>
-    object sqlPaisIDPAIS: TIntegerField
-      FieldName = 'IDPAIS'
-      Origin = 'IDPAIS'
+    object sqlFuncaoIDFUNCAO: TIntegerField
+      FieldName = 'IDFUNCAO'
+      Origin = 'IDFUNCAO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object sqlPaisNMPAIS: TStringField
-      FieldName = 'NMPAIS'
-      Origin = 'NMPAIS'
+    object sqlFuncaoNMFUNCAO: TStringField
+      FieldName = 'NMFUNCAO'
+      Origin = 'NMFUNCAO'
       Required = True
       Size = 150
     end

@@ -35,6 +35,7 @@ object FrmConsultaPadrao: TFrmConsultaPadrao
         end
         inherited btConsultar: TBitBtn
           Left = 653
+          OnClick = fmeConsultabtConsultarClick
           ExplicitLeft = 653
         end
       end

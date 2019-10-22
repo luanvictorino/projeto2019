@@ -1,13 +1,9 @@
-inherited FrmCadastroPais: TFrmCadastroPais
+inherited FrmPaisCadastro: TFrmPaisCadastro
   Caption = 'Cadastro de Pa'#237's'
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
     inherited tsCadastroPadrao: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 647
-      ExplicitHeight = 347
       object lbCdPais: TLabel [0]
         Left = 12
         Top = 5
@@ -23,9 +19,6 @@ inherited FrmCadastroPais: TFrmCadastroPais
         Height = 13
         Caption = 'Pa'#237's*'
         FocusControl = dfNmPais
-      end
-      inherited pnCadastroPadrao: TPanel
-        ExplicitWidth = 647
       end
       object dfCdPais: TDBEdit
         Left = 12

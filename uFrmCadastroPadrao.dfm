@@ -19,7 +19,7 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
     Top = 0
     Width = 655
     Height = 375
-    ActivePage = tsConsPadrao
+    ActivePage = tsCadastroPadrao
     Align = alClient
     TabOrder = 0
     object tsConsPadrao: TTabSheet

@@ -1,4 +1,4 @@
-unit uDMPais;
+unit uDMFuncao;
 
 interface
 
@@ -11,20 +11,16 @@ uses
   FireDAC.Comp.Client;
 
 type
-  TdmPais = class(TDataModulePadrao)
-    sqlPais: TFDQuery;
-    sqlPaisIDPAIS: TIntegerField;
-    sqlPaisNMPAIS: TStringField;
-    procedure sqlPaisAfterOpen(DataSet: TDataSet);
+  TdmFuncao = class(TDataModulePadrao)
+    sqlFuncao: TFDQuery;
+    sqlFuncaoIDFUNCAO: TIntegerField;
+    sqlFuncaoNMFUNCAO: TStringField;
+    procedure sqlFuncaoAfterOpen(DataSet: TDataSet);
     procedure sqlConsultaAfterOpen(DataSet: TDataSet);
   private
     procedure ConfigurarMetaData(const DataSet: TDataSet);
   public
-    { Public declarations }
   end;
-
-var
-  dmPais: TdmPais;
 
 implementation
 
@@ -32,32 +28,32 @@ implementation
 
 {$R *.dfm}
 
-{ TDataModulePadrao2 }
+{ TdmFuncao }
 
-procedure TdmPais.sqlPaisAfterOpen(DataSet: TDataSet);
+procedure TdmFuncao.sqlConsultaAfterOpen(DataSet: TDataSet);
 begin
   inherited;
   ConfigurarMetaData(DataSet);
 end;
 
-procedure TdmPais.sqlConsultaAfterOpen(DataSet: TDataSet);
+procedure TdmFuncao.sqlFuncaoAfterOpen(DataSet: TDataSet);
 begin
   inherited;
   ConfigurarMetaData(DataSet);
 end;
 
-procedure TdmPais.ConfigurarMetaData(const DataSet: TDataSet);
+procedure TdmFuncao.ConfigurarMetaData(const DataSet: TDataSet);
 begin
-  ConfigurarCampo(DataSet, 'nmPais',
+  ConfigurarCampo(DataSet, 'nmFuncao',
     procedure(const poCampo: TField)
     begin
-      poCampo.DisplayLabel := 'Nome do País';
+      poCampo.DisplayLabel := 'Nome da Função';
       poCampo.DisplayWidth := 100;
     end);
-  ConfigurarCampo(DataSet, 'idPais',
+  ConfigurarCampo(DataSet, 'idFuncao',
     procedure(const poCampo: TField)
     begin
-      poCampo.DisplayLabel := 'Código do País';
+      poCampo.DisplayLabel := 'Código da Função';
       poCampo.Visible := False;
     end);
 end;

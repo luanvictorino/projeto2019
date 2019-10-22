@@ -23,7 +23,6 @@ type
   private
     procedure ConfigurarMetaData(const DataSet: TDataSet);
   public
-    { Public declarations }
   end;
 
 var

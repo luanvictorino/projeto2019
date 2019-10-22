@@ -1,9 +1,8 @@
-inherited FrmCadastroCidade: TFrmCadastroCidade
+inherited FrmCidadeCadastro: TFrmCidadeCadastro
   Caption = 'Cadastro de Cidade'
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
-    ActivePage = tsCadastroPadrao
     inherited tsCadastroPadrao: TTabSheet
       object lbCdCidade: TLabel [0]
         Left = 12
@@ -74,6 +73,9 @@ inherited FrmCadastroCidade: TFrmCadastroCidade
         Height = 13
         Caption = 'Estado'
       end
+      inherited pnCadastroPadrao: TPanel
+        TabOrder = 4
+      end
       object dfCdCidade: TDBEdit
         Left = 12
         Top = 20
@@ -82,7 +84,7 @@ inherited FrmCadastroCidade: TFrmCadastroCidade
         DataField = 'IDCIDADE'
         DataSource = dsCadastro
         Enabled = False
-        TabOrder = 1
+        TabOrder = 0
       end
       object dfNmCidade: TDBEdit
         Left = 12
@@ -92,7 +94,7 @@ inherited FrmCadastroCidade: TFrmCadastroCidade
         CharCase = ecUpperCase
         DataField = 'NMCIDADE'
         DataSource = dsCadastro
-        TabOrder = 2
+        TabOrder = 1
       end
       object dfCdEstado: TDBEdit
         Left = 12
@@ -101,19 +103,19 @@ inherited FrmCadastroCidade: TFrmCadastroCidade
         Height = 21
         DataField = 'IDESTADO'
         DataSource = dsCadastro
-        TabOrder = 3
+        TabOrder = 2
       end
       object dfNMEstado: TDBEdit
-        Left = 92
+        Left = 91
         Top = 100
-        Width = 536
+        Width = 537
         Height = 21
         CharCase = ecUpperCase
         DataField = 'NMESTADO'
         DataSource = dsCadastro
         Enabled = False
         ReadOnly = True
-        TabOrder = 4
+        TabOrder = 3
       end
     end
   end

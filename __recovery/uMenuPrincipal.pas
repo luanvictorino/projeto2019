@@ -65,6 +65,7 @@ begin
     oFrmPessoaCadastro.QueryCadastro := oDmPessoa.sqlPessoa;
     oFrmPessoaCadastro.qryFuncionario := oDmPessoa.sqlFuncionario;
     oDmPessoa.sqlFuncionario.Active := True;
+    oDmPessoa.sqlTimesHistorico.Active := True;
     oFrmPessoaCadastro.DefinirConsulta(oFrmPessoaConsulta);
     oFrmPessoaCadastro.ShowModal;
   finally

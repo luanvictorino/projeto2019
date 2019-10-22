@@ -162,15 +162,16 @@ inherited dmPessoa: TdmPessoa
     Connection = Conexao
     UpdateOptions.AutoIncFields = 'IDTIMESHISTORICO'
     SQL.Strings = (
-      'SELECT TIMESHISTORICO.*, NMTIMES'
-      'FROM TIMESHISTORICO'
-      'JOIN TIMES ON TIMESHISTORICO.IDTIMES = TIMES.IDTIMES'
-      'WHERE TIMESHISTORICO.IDTIMESHISTORICO = :IDTIMESHISTORICO')
+      'select TIMESHISTORICO.*'
+      '     , TIMES.NMTIMES'
+      'from TIMESHISTORICO'
+      '  left join TIMES on TIMESHISTORICO.IDTIMES = TIMES.IDTIMES'
+      'where IDPESSOA = :IDPESSOA')
     Left = 128
-    Top = 80
+    Top = 88
     ParamData = <
       item
-        Name = 'IDTIMESHISTORICO'
+        Name = 'IDPESSOA'
         DataType = ftInteger
         ParamType = ptInput
         Value = Null

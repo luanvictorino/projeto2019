@@ -21,11 +21,7 @@ type
     procedure ConfigurarCampo(const DataSet: TDataSet; const sNomeCampo: string;
       const poConfigurarCampo: TConfiguradorCampo);
   public
-    { Public declarations }
   end;
-
-var
-  DataModulePadrao: TDataModulePadrao;
 
 implementation
 
