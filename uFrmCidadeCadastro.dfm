@@ -1,9 +1,21 @@
 inherited FrmCidadeCadastro: TFrmCidadeCadastro
   Caption = 'Cadastro de Cidade'
+  Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
+    ActivePage = tsCadastroPadrao
+    inherited tsConsPadrao: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 647
+      ExplicitHeight = 347
+    end
     inherited tsCadastroPadrao: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 647
+      ExplicitHeight = 347
       object lbCdCidade: TLabel [0]
         Left = 12
         Top = 5

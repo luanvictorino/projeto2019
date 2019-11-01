@@ -11,8 +11,7 @@ uses
   uFrmEstadoCadastro, uFrmEstadoConsulta, uFrmCidadeCadastro, uFrmCidadeConsulta,
   uDMPessoa, uFrmPessoaCadastro, uFrmPessoaConsulta, uFrmFuncaoCadastro,
   uFrmFuncaoConsulta, uDMFuncao, uDMTimes, uFrmTimeCadastro, uFrmTimeConsulta,
-  uFrmTimesHistoricoCadastro, uDMTimesHistorico, uFrmTimesHistoricoConsulta,
-  uTesteTimesHistoricoCadastro;
+  uFrmTimeSair, uFrmTimeEntrar;
 
 type
   TfMenuPrincipal = class(TForm)
@@ -36,8 +35,6 @@ type
     procedure imSairClick(Sender: TObject);
     procedure Funo1Click(Sender: TObject);
     procedure imes1Click(Sender: TObject);
-    procedure Consulta1Click(Sender: TObject);
-    procedure este1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -53,8 +50,8 @@ implementation
 
 procedure TfMenuPrincipal.imPessoaClick(Sender: TObject);
 var
-  oFrmPessoaCadastro: TFrmPessoaCadastro;
   oDmPessoa: TdmPessoa;
+  oFrmPessoaCadastro: TFrmPessoaCadastro;
   oFrmPessoaConsulta: TFrmPessoaConsulta;
 begin
   oFrmPessoaCadastro := TFrmPessoaCadastro.Create(nil);
@@ -64,7 +61,6 @@ begin
     oFrmPessoaConsulta.QueryConsulta := oDmPessoa.sqlConsulta;
     oFrmPessoaCadastro.QueryCadastro := oDmPessoa.sqlPessoa;
     oFrmPessoaCadastro.qryFuncionario := oDmPessoa.sqlFuncionario;
-    oDmPessoa.sqlFuncionario.Active := True;
     oFrmPessoaCadastro.DefinirConsulta(oFrmPessoaConsulta);
     oFrmPessoaCadastro.ShowModal;
   finally
@@ -72,32 +68,6 @@ begin
     oFrmPessoaCadastro.Release;
     FreeAndNil(oDmPessoa);
   end;
-end;
-
-procedure TfMenuPrincipal.Consulta1Click(Sender: TObject);
-var
-  oFrmTimesHistoricoCadastro: TFrmTimesHistoricoCadastro;
-  oDmTimesHistorico: TdmTimesHistorico;
-  oFrmTimesHistoricoConsulta: TFrmTimesHistoricoConsulta;
-begin
-  oFrmTimesHistoricoCadastro := TFrmTimesHistoricoCadastro.Create(nil);
-  oFrmTimesHistoricoConsulta := TFrmTimesHistoricoConsulta.Create(nil);
-  oDmTimesHistorico := TdmTimesHistorico.Create(nil);
-  try
-    oFrmTimesHistoricoConsulta.QueryConsulta := oDmTimesHistorico.sqlConsulta;
-    oFrmTimesHistoricoCadastro.QueryCadastro := oDmTimesHistorico.sqlTimesHistorico;
-    oFrmTimesHistoricoCadastro.DefinirConsulta(oFrmTimesHistoricoConsulta);
-    oFrmTimesHistoricoCadastro.ShowModal;
-  finally
-    oFrmTimesHistoricoConsulta.Release;
-    oFrmTimesHistoricoCadastro.Release;
-    FreeAndNil(oDmTimesHistorico);
-  end;
-end;
-
-procedure TfMenuPrincipal.este1Click(Sender: TObject);
-begin
-  FrmTimesHistorico.ShowModal;
 end;
 
 procedure TfMenuPrincipal.Funo1Click(Sender: TObject);
@@ -152,14 +122,14 @@ begin
   oFrmTimeConsulta := TFrmTimeConsulta.Create(nil);
   oDmtime := TDmTimes.Create(nil);
   try
-    oFrmTimeConsulta.QueryConsulta := oDmTime.sqlConsulta;
-    oFrmTimeCadastro.QueryCadastro := oDmTime.sqlTimes;
+    oFrmTimeConsulta.QueryConsulta := oDmtime.sqlConsulta;
+    oFrmTimeCadastro.QueryCadastro := oDmtime.sqlTimes;
     oFrmTimeCadastro.DefinirConsulta(oFrmTimeConsulta);
     oFrmTimeCadastro.ShowModal;
   finally
     oFrmTimeConsulta.Release;
     oFrmTimeCadastro.Release;
-    FreeAndNil(oDmTime);
+    FreeAndNil(oDmtime);
   end;
 end;
 
@@ -170,8 +140,8 @@ var
   oFrmEstadoConsulta: TFrmEstadoConsulta;
 begin
   oFrmEstadoCadastro := TFrmEstadoCadastro.Create(nil);
-  oFrmEstadoConsulta := TFrmEstadoConsulta.Create(nil);
-  oDmEstado := TDmEstado.Create(nil);
+  oFrmEstadoConsulta := TFrmEstadoConsulta.Create(self);
+  oDmEstado := TdmEstado.Create(nil);
   try
     oFrmEstadoConsulta.QueryConsulta := oDmEstado.sqlConsulta;
     oFrmEstadoCadastro.QueryCadastro := oDmEstado.sqlEstado;

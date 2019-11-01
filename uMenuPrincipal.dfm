@@ -70,11 +70,9 @@ object fMenuPrincipal: TfMenuPrincipal
     end
     object Consulta1: TMenuItem
       Caption = 'Alterar Time'
-      OnClick = Consulta1Click
     end
     object este1: TMenuItem
       Caption = 'Teste'
-      OnClick = este1Click
     end
   end
 end

@@ -115,6 +115,7 @@ var
 begin
   if not(QueryCadastro.State in dsEditModes) then
     Exit;
+
   oDmPais := TdmPais.Create(nil);
   oFrmPaisConsulta := PegarConsultaPais(oDmPais);
   try

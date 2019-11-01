@@ -1,5 +1,6 @@
 inherited dmPessoa: TdmPessoa
   OldCreateOrder = True
+  Width = 522
   inherited Conexao: TFDConnection
     Left = 159
     Top = 24
@@ -143,7 +144,6 @@ inherited dmPessoa: TdmPessoa
     object sqlFuncionarioDTDEMISSAO: TDateField
       FieldName = 'DTDEMISSAO'
       Origin = 'DTDEMISSAO'
-      Required = True
       EditMask = '!99/99/0000;1;_'
     end
   end
@@ -156,50 +156,68 @@ inherited dmPessoa: TdmPessoa
     Left = 224
     Top = 80
   end
-  object sqltimesHistorico: TFDQuery
-    Active = True
+  object sqlTimesHistorico: TFDQuery
+    AfterOpen = sqlTimesHistoricoAfterOpen
     CachedUpdates = True
+    Indexes = <
+      item
+        Active = True
+        Selected = True
+        Name = 'IDX_PESSOA_SAIDA'
+        Fields = 'IDPESSOA;DTSAIDA'
+        DescFields = 'DTSAIDA'
+      end>
+    IndexName = 'IDX_PESSOA_SAIDA'
+    MasterSource = dsPessoa
+    MasterFields = 'IDPESSOA'
+    DetailFields = 'IDPESSOA'
     Connection = Conexao
+    SchemaAdapter = PessoaSchemaAdapter
+    FetchOptions.AssignedValues = [evDetailCascade]
+    FetchOptions.DetailCascade = True
     UpdateOptions.AutoIncFields = 'IDTIMESHISTORICO'
     SQL.Strings = (
-      'SELECT TIMESHISTORICO.*, NMTIMES'
-      'FROM TIMESHISTORICO'
-      'JOIN TIMES ON TIMESHISTORICO.IDTIMES = TIMES.IDTIMES'
-      'WHERE TIMESHISTORICO.IDTIMESHISTORICO = :IDTIMESHISTORICO')
-    Left = 128
-    Top = 80
+      'select TIMESHISTORICO.*'
+      '     , TIMES.NMTIMES'
+      'from TIMESHISTORICO'
+      '  left join TIMES on TIMESHISTORICO.IDTIMES = TIMES.IDTIMES'
+      'where IDPESSOA = :IDPESSOA')
+    Left = 392
+    Top = 23
     ParamData = <
       item
-        Name = 'IDTIMESHISTORICO'
+        Name = 'IDPESSOA'
         DataType = ftInteger
         ParamType = ptInput
         Value = Null
       end>
-    object sqltimesHistoricoIDTIMESHISTORICO: TIntegerField
+    object sqlTimesHistoricoIDTIMESHISTORICO: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'IDTIMESHISTORICO'
       Origin = 'IDTIMESHISTORICO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object sqltimesHistoricoIDPESSOA: TIntegerField
+    object sqlTimesHistoricoIDPESSOA: TIntegerField
       FieldName = 'IDPESSOA'
       Origin = 'IDPESSOA'
       Required = True
     end
-    object sqltimesHistoricoIDTIMES: TIntegerField
+    object sqlTimesHistoricoIDTIMES: TIntegerField
       FieldName = 'IDTIMES'
       Origin = 'IDTIMES'
       Required = True
     end
-    object sqltimesHistoricoDTENTRADA: TDateField
+    object sqlTimesHistoricoDTENTRADA: TDateField
       FieldName = 'DTENTRADA'
       Origin = 'DTENTRADA'
+      Required = True
+      EditMask = '!99/99/0000;1;_'
     end
-    object sqltimesHistoricoDTSAIDA: TDateField
+    object sqlTimesHistoricoDTSAIDA: TDateField
       FieldName = 'DTSAIDA'
       Origin = 'DTSAIDA'
     end
-    object sqltimesHistoricoNMTIMES: TStringField
+    object sqlTimesHistoricoNMTIMES: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'NMTIMES'
       Origin = 'NMTIMES'

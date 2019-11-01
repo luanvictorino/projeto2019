@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask,
-  Vcl.DBCtrls, Vcl.ExtCtrls, Data.DB, uDMPessoa, uFrmTimeConsulta, uDMTimes,
+  Vcl.DBCtrls, Vcl.ExtCtrls, Data.DB, uFrmTimeConsulta, uDMTimes,
   FireDAC.Comp.Client;
 
 type
@@ -22,14 +22,17 @@ type
     procedure btConsultarTimeClick(Sender: TObject);
     procedure btCancelarClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
-    procedure SetQueryCadastro(const Value: TFDQuery);
+    function ValidarNmTime: boolean;
+    function ValidarDtEntrada: boolean;
     function PegarConsultaTimes(const poDmTimes: TdmTimes): TfrmTimeConsulta;
     function GetQryTimesHistorico: TFDQuery;
     procedure OnSelecionarTimes(const RegistroAtual: TDataSet);
     procedure SetQryTimesHistorico(const Value: TFDQuery);
   protected
     procedure CancelarRegistro;
+    function TestarRegistroValido: boolean;
   public
     property qryTimesHistorico: TFDQuery read GetQryTimesHistorico write SetQryTimesHistorico;
   end;
@@ -38,16 +41,65 @@ implementation
 
 {$R *.dfm}
 
-procedure TFrmTimeEntrar.btCancelarClick(Sender: TObject);
+procedure TFrmTimeEntrar.FormShow(Sender: TObject);
 begin
-  CancelarRegistro;
+  if qryTimesHistorico.FieldByName('DTSAIDA').IsNull then
+    qryTimesHistorico.Edit
+  else
+    qryTimesHistorico.Insert;
+
+  qryTimesHistorico.FieldByName('DTENTRADA').AsString := DateToStr(Date);
 end;
 
 procedure TFrmTimeEntrar.btConfirmarClick(Sender: TObject);
 begin
-  qryTimesHistorico.FieldByName('idPessoa').AsInteger := 14;
-  qryTimesHistorico.Post;
-  qryTimesHistorico.CommitUpdates;
+   if not TestarRegistroValido then
+    Exit;
+
+  Close;
+end;
+
+function TFrmTimeEntrar.TestarRegistroValido: boolean;
+begin
+  Result := False;
+
+  if ValidarNmTime then
+    Exit;
+
+  if ValidarDtEntrada then
+    Exit;
+
+  Result := True;
+end;
+
+function TFrmTimeEntrar.ValidarDtEntrada: boolean;
+var
+  oField: TField;
+begin
+  Result := False;
+  oField:= qryTimesHistorico.FieldByName('dtEntrada');
+  if not oField.AsString.Trim.IsEmpty then
+    Exit;
+
+  ShowMessage('Campo obrigatório não preenchido!');
+  oField.FocusControl;
+
+  Result := True;
+end;
+
+function TFrmTimeEntrar.ValidarNmTime: boolean;
+var
+  oField: TField;
+begin
+  Result := False;
+  oField := qryTimesHistorico.FieldByName('nmTimes');
+  if not oField.AsString.Trim.IsEmpty then
+    Exit;
+
+  ShowMessage('Campo obrigatório não preenchido!');
+  oField.FocusControl;
+
+  Result := True;
 end;
 
 procedure TFrmTimeEntrar.btConsultarTimeClick(Sender: TObject);
@@ -65,14 +117,15 @@ begin
   end;
 end;
 
+procedure TFrmTimeEntrar.btCancelarClick(Sender: TObject);
+begin
+  CancelarRegistro;
+  Close;
+end;
+
 procedure TFrmTimeEntrar.CancelarRegistro;
 begin
   QryTimesHistorico.Cancel;
-end;
-
-function TFrmTimeEntrar.GetQryTimesHistorico: TFDQuery;
-begin
-  Result := dsTimesHistorico.DataSet as TFDQuery;
 end;
 
 procedure TFrmTimeEntrar.OnSelecionarTimes(const RegistroAtual: TDataSet);
@@ -113,9 +166,9 @@ begin
   dsTimesHistorico.DataSet := Value;
 end;
 
-procedure TFrmTimeEntrar.SetQueryCadastro(const Value: TFDQuery);
+function TFrmTimeEntrar.GetQryTimesHistorico: TFDQuery;
 begin
-
+  Result := dsTimesHistorico.DataSet as TFDQuery;
 end;
 
 end.

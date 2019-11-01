@@ -8,9 +8,12 @@ uses
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
   FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Stan.Param,
   FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client;
+  FireDAC.Comp.Client, Datasnap.DBClient, Datasnap.Provider, Data.FMTBcd,
+  Data.SqlExpr;
 
 type
+
+
   TdmPessoa = class(TDataModulePadrao)
     sqlPessoa: TFDQuery;
     sqlFuncionario: TFDQuery;
@@ -29,15 +32,16 @@ type
     dsPessoa: TDataSource;
     sqlPessoaDTNASCIMENTO: TDateField;
     sqlFuncionarioDTDEMISSAO: TDateField;
-    sqltimesHistorico: TFDQuery;
-    sqltimesHistoricoIDTIMESHISTORICO: TIntegerField;
-    sqltimesHistoricoIDPESSOA: TIntegerField;
-    sqltimesHistoricoIDTIMES: TIntegerField;
-    sqltimesHistoricoDTENTRADA: TDateField;
-    sqltimesHistoricoDTSAIDA: TDateField;
-    sqltimesHistoricoNMTIMES: TStringField;
+    sqlTimesHistorico: TFDQuery;
+    sqlTimesHistoricoIDTIMESHISTORICO: TIntegerField;
+    sqlTimesHistoricoIDPESSOA: TIntegerField;
+    sqlTimesHistoricoIDTIMES: TIntegerField;
+    sqlTimesHistoricoDTENTRADA: TDateField;
+    sqlTimesHistoricoDTSAIDA: TDateField;
+    sqlTimesHistoricoNMTIMES: TStringField;
     procedure sqlPessoaAfterOpen(DataSet: TDataSet);
     procedure sqlConsultaAfterOpen(DataSet: TDataSet);
+    procedure sqlTimesHistoricoAfterOpen(DataSet: TDataSet);
   private
     procedure ConfigurarMetaData(const DataSet: TDataSet);
   end;
@@ -56,6 +60,14 @@ begin
 end;
 
 procedure TdmPessoa.sqlPessoaAfterOpen(DataSet: TDataSet);
+begin
+  inherited;
+  ConfigurarMetaData(DataSet);
+  sqlFuncionario.Open();
+  sqlTimesHistorico.Open();
+end;
+
+procedure TdmPessoa.sqlTimesHistoricoAfterOpen(DataSet: TDataSet);
 begin
   inherited;
   ConfigurarMetaData(DataSet);
@@ -104,6 +116,36 @@ begin
     begin
       poCampo.DisplayLabel := 'Data de Nascimento';
       poCampo.DisplayWidth := 5;
+    end);
+  ConfigurarCampo(DataSet, 'DtEntrada',
+    procedure(const poCampo: TField)
+    begin
+      poCampo.DisplayLabel := 'Data de Entrada';
+      poCampo.DisplayWidth := 5;
+    end);
+  ConfigurarCampo(DataSet, 'DtSaida',
+    procedure(const poCampo: TField)
+    begin
+      poCampo.DisplayLabel := 'Data de Saída';
+      poCampo.DisplayWidth := 5;
+    end);
+  ConfigurarCampo(DataSet, 'NmTimes',
+    procedure(const poCampo: TField)
+    begin
+      poCampo.DisplayLabel := 'Time';
+      poCampo.DisplayWidth := 60;
+    end);
+  ConfigurarCampo(DataSet, 'IdTimes',
+    procedure(const poCampo: TField)
+    begin
+      poCampo.DisplayLabel := 'IdPessoa';
+      poCampo.Visible := False;
+    end);
+  ConfigurarCampo(DataSet, 'IdTimesHistorico',
+    procedure(const poCampo: TField)
+    begin
+      poCampo.DisplayLabel := 'Time';
+      poCampo.Visible := False;
     end);
 end;
 

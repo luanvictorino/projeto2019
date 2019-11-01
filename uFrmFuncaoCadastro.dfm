@@ -1,8 +1,10 @@
 inherited FrmFuncaoCadastro: TFrmFuncaoCadastro
   Caption = 'Cadastro de fun'#231#227'o'
+  Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
+    ActivePage = tsCadastroPadrao
     inherited tsConsPadrao: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
@@ -10,6 +12,10 @@ inherited FrmFuncaoCadastro: TFrmFuncaoCadastro
       ExplicitHeight = 347
     end
     inherited tsCadastroPadrao: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 647
+      ExplicitHeight = 347
       object lbCdFuncao: TLabel [0]
         Left = 12
         Top = 5

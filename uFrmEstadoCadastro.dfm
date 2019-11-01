@@ -1,8 +1,10 @@
 inherited FrmEstadoCadastro: TFrmEstadoCadastro
   Caption = 'Cadastro de Estado'
+  Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
+    ActivePage = tsCadastroPadrao
     inherited tsConsPadrao: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
@@ -12,6 +14,10 @@ inherited FrmEstadoCadastro: TFrmEstadoCadastro
     inherited tsCadastroPadrao: TTabSheet
       ParentShowHint = False
       ShowHint = True
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 647
+      ExplicitHeight = 347
       object lbCdEstado: TLabel [0]
         Left = 12
         Top = 5

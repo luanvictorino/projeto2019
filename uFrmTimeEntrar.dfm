@@ -1,9 +1,10 @@
 object FrmTimeEntrar: TFrmTimeEntrar
   Left = 0
   Top = 0
+  BorderStyle = bsDialog
   Caption = 'Entrar no Time'
-  ClientHeight = 110
-  ClientWidth = 344
+  ClientHeight = 105
+  ClientWidth = 306
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,13 +12,15 @@ object FrmTimeEntrar: TFrmTimeEntrar
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poOwnerFormCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pnTimeEntrar: TPanel
     Left = 0
     Top = 0
-    Width = 344
-    Height = 110
+    Width = 306
+    Height = 105
     Align = alClient
     TabOrder = 0
     object blDtEntrada: TLabel
@@ -85,7 +88,7 @@ object FrmTimeEntrar: TFrmTimeEntrar
     object dfDtEntrada: TDBEdit
       Left = 207
       Top = 28
-      Width = 121
+      Width = 79
       Height = 21
       DataField = 'DTENTRADA'
       DataSource = dsTimesHistorico
@@ -111,7 +114,7 @@ object FrmTimeEntrar: TFrmTimeEntrar
     end
   end
   object dsTimesHistorico: TDataSource
-    DataSet = dmPessoa.sqltimesHistorico
+    DataSet = dmPessoa.sqlTimesHistorico
     Left = 248
     Top = 64
   end

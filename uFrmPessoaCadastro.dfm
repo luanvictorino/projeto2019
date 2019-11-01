@@ -1,5 +1,6 @@
 inherited FrmPessoaCadastro: TFrmPessoaCadastro
   Caption = 'Cadastro de Pessoa'
+  Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
@@ -46,7 +47,7 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
             FocusControl = dfNuTelefone
           end
           object lnNuCelular: TLabel
-            Left = 322
+            Left = 161
             Top = 82
             Width = 33
             Height = 13
@@ -144,16 +145,16 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
           object dfNuTelefone: TDBEdit
             Left = 10
             Top = 97
-            Width = 305
+            Width = 145
             Height = 21
             DataField = 'NUTELEFONE'
             DataSource = dsCadastro
             TabOrder = 2
           end
           object dfNuCelular: TDBEdit
-            Left = 322
+            Left = 161
             Top = 97
-            Width = 304
+            Width = 145
             Height = 21
             DataField = 'NUCELULAR'
             DataSource = dsCadastro
@@ -190,7 +191,7 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
           object dfDtNascimento: TDBEdit
             Left = 10
             Top = 177
-            Width = 305
+            Width = 96
             Height = 21
             DataField = 'DTNASCIMENTO'
             DataSource = dsCadastro
@@ -217,7 +218,7 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
             FocusControl = dfDtAdmissao
           end
           object lbDtDemissao: TLabel
-            Left = 319
+            Left = 101
             Top = 42
             Width = 86
             Height = 13
@@ -282,17 +283,17 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
           end
           object dfDtAdmissao: TDBEdit
             Left = 10
-            Top = 57
-            Width = 299
+            Top = 61
+            Width = 77
             Height = 21
             DataField = 'DTADMISSAO'
             DataSource = dsFuncionario
             TabOrder = 2
           end
           object dfDtDemissao: TDBEdit
-            Left = 319
-            Top = 57
-            Width = 301
+            Left = 101
+            Top = 61
+            Width = 77
             Height = 21
             DataField = 'DTDEMISSAO'
             DataSource = dsFuncionario
@@ -309,54 +310,41 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
             TabOrder = 1
           end
           object gbTime: TGroupBox
-            Left = 10
-            Top = 90
+            Left = 3
+            Top = 88
             Width = 610
             Height = 175
             Caption = 'Time'
             TabOrder = 4
-            object lbTimeAtual: TLabel
-              Left = 19
-              Top = 24
-              Width = 29
-              Height = 13
-              Caption = 'Atual:'
-            end
-            object dfNmTime: TDBEdit
-              Left = 54
-              Top = 21
-              Width = 121
-              Height = 21
-              DataField = 'NMTIMES'
-              DataSource = dsTimesHistorico
-              Enabled = False
-              TabOrder = 0
-            end
             object btEntrarTime: TButton
               Left = 19
-              Top = 48
-              Width = 75
+              Top = 20
+              Width = 118
               Height = 25
-              Caption = 'Entrar'
-              TabOrder = 1
+              Caption = 'Entrar em um time'
+              TabOrder = 0
               OnClick = btEntrarTimeClick
             end
             object btSairTime: TButton
-              Left = 100
-              Top = 48
-              Width = 75
+              Left = 158
+              Top = 20
+              Width = 133
               Height = 25
-              Caption = 'Sair'
-              TabOrder = 2
+              Caption = 'Sair do time atual'
+              Enabled = False
+              TabOrder = 1
               OnClick = btSairTimeClick
             end
-            object DBGrid1: TDBGrid
-              Left = 19
-              Top = 79
-              Width = 574
-              Height = 82
+            object grTimesHistorico: TDBGrid
+              Left = 2
+              Top = 51
+              Width = 606
+              Height = 122
+              Align = alBottom
               DataSource = dsTimesHistorico
-              TabOrder = 3
+              Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+              ReadOnly = True
+              TabOrder = 2
               TitleFont.Charset = DEFAULT_CHARSET
               TitleFont.Color = clWindowText
               TitleFont.Height = -11
@@ -371,16 +359,17 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
   inherited dsCadastro: TDataSource
     DataSet = dmPessoa.sqlPessoa
     OnDataChange = dsCadastroDataChange
+    Top = 32
   end
   object dsFuncionario: TDataSource
     DataSet = dmPessoa.sqlFuncionario
     OnDataChange = dsFuncionarioDataChange
     Left = 568
-    Top = 96
+    Top = 32
   end
   object dsTimesHistorico: TDataSource
-    DataSet = dmPessoa.sqltimesHistorico
-    Left = 402
+    DataSet = dmPessoa.sqlTimesHistorico
+    Left = 570
     Top = 98
   end
 end

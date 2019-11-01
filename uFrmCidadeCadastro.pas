@@ -87,7 +87,7 @@ var
   oFrmEstadoConsulta: TfrmEstadoConsulta;
   oDmEstado: TdmEstado;
 begin
-  oDmEstado := TdmEstado.Create(nil);
+  oDmEstado := TdmEstado.Create(self);
   oFrmEstadoConsulta := PegarConsultaEstado(oDmEstado);
   try
     oFrmEstadoConsulta.ShowModal;

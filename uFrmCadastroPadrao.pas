@@ -25,7 +25,6 @@ type
     dsCadastro: TDataSource;
     procedure btNovoClick(Sender: TObject);
     procedure btCancelarClick(Sender: TObject);
-    procedure OnSelecionarRegistro(const RegistroSelecionado: TDataSet);
     procedure btSalvarClick(Sender: TObject);
     procedure btExcluirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -39,6 +38,7 @@ type
     function ComitarQuery: boolean;
     procedure SalvarRegistro; virtual;
   protected
+    procedure OnSelecionarRegistro(const RegistroSelecionado: TDataSet); virtual;
     procedure InserirNovoRegistro; virtual;
     procedure CancelarRegistro; virtual;
     procedure SalvarQryDetalhes; virtual;

@@ -201,23 +201,6 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="uDMTimesHistorico.pas">
-            <Form>dmTimesHistorico</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
-        <DCCReference Include="uFrmTimesHistoricoCadastro.pas">
-            <Form>FrmTimesHistoricoCadastro</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="uFrmTimesHistoricoConsulta.pas">
-            <Form>FrmTimesHistoricoConsulta</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="uTesteTimesHistoricoCadastro.pas">
-            <Form>FrmTimesHistorico</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="uFrmTimeEntrar.pas">
             <Form>FrmTimeEntrar</Form>
             <FormType>dfm</FormType>

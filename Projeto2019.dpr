@@ -26,10 +26,6 @@ uses
   uFrmTimeConsulta in 'uFrmTimeConsulta.pas' {FrmTimeConsulta},
   uFrmTimeCadastro in 'uFrmTimeCadastro.pas' {FrmTimeCadastro},
   uDMTimes in 'uDMTimes.pas' {dmTimes: TDataModule},
-  uDMTimesHistorico in 'uDMTimesHistorico.pas' {dmTimesHistorico: TDataModule},
-  uFrmTimesHistoricoCadastro in 'uFrmTimesHistoricoCadastro.pas' {FrmTimesHistoricoCadastro},
-  uFrmTimesHistoricoConsulta in 'uFrmTimesHistoricoConsulta.pas' {FrmTimesHistoricoConsulta},
-  uTesteTimesHistoricoCadastro in 'uTesteTimesHistoricoCadastro.pas' {FrmTimesHistorico},
   uFrmTimeEntrar in 'uFrmTimeEntrar.pas' {FrmTimeEntrar},
   uFrmTimeSair in 'uFrmTimeSair.pas' {FrmTimeSair};
 

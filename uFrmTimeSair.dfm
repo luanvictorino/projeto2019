@@ -1,9 +1,10 @@
 object FrmTimeSair: TFrmTimeSair
   Left = 0
   Top = 0
+  BorderStyle = bsDialog
   Caption = 'Sair do Time'
-  ClientHeight = 110
-  ClientWidth = 191
+  ClientHeight = 105
+  ClientWidth = 189
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,13 +12,15 @@ object FrmTimeSair: TFrmTimeSair
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poMainFormCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pnTimeSair: TPanel
     Left = 0
     Top = 0
-    Width = 191
-    Height = 110
+    Width = 189
+    Height = 105
     Align = alClient
     TabOrder = 0
     object lbDtsaida: TLabel
@@ -43,6 +46,7 @@ object FrmTimeSair: TFrmTimeSair
       Height = 25
       Caption = 'Confirmar'
       TabOrder = 1
+      OnClick = btConfirmarClick
     end
     object btCancelar: TButton
       Left = 97
@@ -51,10 +55,11 @@ object FrmTimeSair: TFrmTimeSair
       Height = 25
       Caption = 'Cancelar'
       TabOrder = 2
+      OnClick = btCancelarClick
     end
   end
   object dsTimesHistorico: TDataSource
-    DataSet = dmPessoa.sqltimesHistorico
+    DataSet = dmPessoa.sqlTimesHistorico
     Left = 144
     Top = 56
   end
