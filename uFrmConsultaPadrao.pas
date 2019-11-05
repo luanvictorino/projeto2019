@@ -23,7 +23,6 @@ type
     procedure actConsultarExecute(Sender: TObject);
     procedure actFecharExecute(Sender: TObject);
     procedure actSelecionarExecute(Sender: TObject);
-    procedure fmeConsultabtConsultarClick(Sender: TObject);
   private
     FModoConsulta: TModoConsulta;
     FOnSelecionarRegistro: TOnSelecionarRegistro;
@@ -90,12 +89,6 @@ procedure TFrmConsultaPadrao.DefinirModo(const ModoConsulta: TModoConsulta);
 begin
   FModoConsulta := ModoConsulta;
   pnlControles.Visible := ModoConsulta = mcForm;
-end;
-
-procedure TFrmConsultaPadrao.fmeConsultabtConsultarClick(Sender: TObject);
-begin
-  fmeConsulta.btConsultarClick(Sender);
-
 end;
 
 function TFrmConsultaPadrao.SelecionarID(const psCampoPesquisa: string; const pnID: Integer): boolean;

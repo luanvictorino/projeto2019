@@ -22,7 +22,6 @@ type
     grConsPadrao: TDBGrid;
     pnlDadosConsulta: TPanel;
     pnlResultadoConsulta: TPanel;
-    procedure btConsultarClick(Sender: TObject);
     procedure grConsPadraoDblClick(Sender: TObject);
   private
     { Private declarations }
@@ -57,18 +56,6 @@ implementation
 
 {$R *.dfm}
 
-procedure TFrameConsultaPadrao.btConsultarClick(Sender: TObject);
-begin
-  Consultar(dfConsPadrao.Text);
-end;
-
-procedure TFrameConsultaPadrao.Consultar(const sConteudoConsulta: string);
-begin
-  MontarSQLBasico;
-  MontarSQLWhere(sConteudoConsulta);
-  QueryConsulta.Open;
-end;
-
 procedure TFrameConsultaPadrao.ExecutarConsulta(const TextoConsulta: string = '');
 var
   _consulta: string;
@@ -77,6 +64,13 @@ begin
   if _consulta.Trim.IsEmpty then
     _consulta := dfConsPadrao.Text;
   Consultar(_consulta);
+end;
+
+procedure TFrameConsultaPadrao.Consultar(const sConteudoConsulta: string);
+begin
+  MontarSQLBasico;
+  MontarSQLWhere(sConteudoConsulta);
+  QueryConsulta.Open;
 end;
 
 procedure TFrameConsultaPadrao.MontarSQLBasico;

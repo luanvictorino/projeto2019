@@ -4,7 +4,6 @@ inherited FrmTimeCadastro: TFrmTimeCadastro
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
-    ActivePage = tsCadastroPadrao
     inherited tsConsPadrao: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
@@ -39,6 +38,7 @@ inherited FrmTimeCadastro: TFrmTimeCadastro
         Height = 21
         DataField = 'IDTIMES'
         DataSource = dsCadastro
+        Enabled = False
         TabOrder = 1
       end
       object dfNmTimes: TDBEdit

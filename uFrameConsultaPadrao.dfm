@@ -46,7 +46,6 @@ object FrameConsultaPadrao: TFrameConsultaPadrao
         Caption = '&Consultar'
         Default = True
         TabOrder = 1
-        OnClick = btConsultarClick
       end
     end
   end

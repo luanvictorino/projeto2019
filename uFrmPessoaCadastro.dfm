@@ -4,7 +4,17 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
+    inherited tsConsPadrao: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 647
+      ExplicitHeight = 347
+    end
     inherited tsCadastroPadrao: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 647
+      ExplicitHeight = 347
       inherited pnCadastroPadrao: TPanel
         TabOrder = 1
         inherited btSalvar: TBitBtn
@@ -22,10 +32,6 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
         TabOrder = 0
         object tsCadastroPessoa: TTabSheet
           Caption = 'Pessoa'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lbCdPessoa: TLabel
             Left = 10
             Top = 2
