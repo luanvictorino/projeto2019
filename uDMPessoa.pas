@@ -39,6 +39,7 @@ type
     sqlTimesHistoricoDTENTRADA: TDateField;
     sqlTimesHistoricoDTSAIDA: TDateField;
     sqlTimesHistoricoNMTIMES: TStringField;
+    dsFuncionario: TDataSource;
     procedure sqlPessoaAfterOpen(DataSet: TDataSet);
     procedure sqlConsultaAfterOpen(DataSet: TDataSet);
     procedure sqlTimesHistoricoAfterOpen(DataSet: TDataSet);

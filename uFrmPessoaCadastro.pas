@@ -51,6 +51,7 @@ type
     btSairTime: TButton;
     grTimesHistorico: TDBGrid;
     dsTimesHistorico: TDataSource;
+    ClientDataSet1: TClientDataSet;
     procedure btConsultarCidadeClick(Sender: TObject);
     procedure dsCadastroDataChange(Sender: TObject; Field: TField);
     procedure btConsultarFuncaoClick(Sender: TObject);
@@ -213,7 +214,6 @@ var
   oDmFuncao: TdmFuncao;
   oFrmFuncaoConsulta: TfrmFuncaoConsulta;
   bRegistroSelecionado: boolean;
-  bIdFoiModificado: boolean;
 begin
   if not(poIdFuncao.DataSet.State in dsEditModes) then
     Exit;
@@ -224,11 +224,7 @@ begin
     Exit;
   end;
 
-  bIdFoiModificado := poIdFuncao.NewValue = poIdFuncao.OldValue;
-  if bIdFoiModificado then
-    Exit;
-
-  oDmFuncao := TdmFuncao.Create(nil);
+  oDmFuncao := TDmFuncao.Create(nil);
   oFrmFuncaoConsulta := PegarConsultaFuncao(oDmFuncao);
   try
     bRegistroSelecionado := oFrmFuncaoConsulta.SelecionarID('IDFUNCAO', poIdFuncao.AsInteger);
@@ -276,9 +272,6 @@ begin
     poNmCidade.Clear;
     Exit;
   end;
-
-  if poIdCidade.NewValue = poIdCidade.OldValue then
-    Exit;
 
   oDmCidade := TdmCidade.Create(nil);
   oFrmCidadeConsulta := PegarConsultaCidade(oDmCidade);

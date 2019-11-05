@@ -120,6 +120,7 @@ begin
   try
     if QueryConsulta.Active then
       QueryConsulta.Close;
+
     QueryConsulta.SQL.Text := Format(SQL_PESQUISA, [sNomeTabela, psCampoPesquisa]);
     QueryConsulta.Params.ParamByName('ID').AsInteger := pnID;
     QueryConsulta.Open;

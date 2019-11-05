@@ -22,6 +22,10 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
         TabOrder = 0
         object tsCadastroPessoa: TTabSheet
           Caption = 'Pessoa'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lbCdPessoa: TLabel
             Left = 10
             Top = 2
@@ -371,5 +375,11 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
     DataSet = dmPessoa.sqlTimesHistorico
     Left = 570
     Top = 98
+  end
+  object ClientDataSet1: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 363
+    Top = 168
   end
 end

@@ -24,6 +24,10 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
     TabOrder = 0
     object tsConsPadrao: TTabSheet
       Caption = 'Consulta'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pnConsPadrao: TPanel
         Left = 0
         Top = 312
@@ -46,6 +50,10 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
     object tsCadastroPadrao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pnCadastroPadrao: TPanel
         Left = 0
         Top = 306

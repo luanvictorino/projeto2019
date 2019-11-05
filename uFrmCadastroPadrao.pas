@@ -113,6 +113,7 @@ begin
   bEncontrouErro := QueryCadastro.SchemaAdapter.ApplyUpdates(0) <> 0;
   if bEncontrouErro then
     Exit;
+
   QueryCadastro.SchemaAdapter.CommitUpdates;
   Result := True;
 end;

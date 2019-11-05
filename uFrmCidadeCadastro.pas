@@ -125,9 +125,6 @@ begin
     Exit;
   end;
 
-  if poIdEstado.NewValue = poIdEstado.OldValue then
-    Exit;
-
   oDmEstado := TdmEstado.Create(nil);
   oFrmEstadoConsulta := PegarConsultaEstado(oDmEstado);
   try

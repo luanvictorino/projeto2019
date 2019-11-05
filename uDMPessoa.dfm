@@ -148,8 +148,8 @@ inherited dmPessoa: TdmPessoa
     end
   end
   object PessoaSchemaAdapter: TFDSchemaAdapter
-    Left = 316
-    Top = 78
+    Left = 220
+    Top = 142
   end
   object dsPessoa: TDataSource
     DataSet = sqlPessoa
@@ -168,7 +168,7 @@ inherited dmPessoa: TdmPessoa
         DescFields = 'DTSAIDA'
       end>
     IndexName = 'IDX_PESSOA_SAIDA'
-    MasterSource = dsPessoa
+    MasterSource = dsFuncionario
     MasterFields = 'IDPESSOA'
     DetailFields = 'IDPESSOA'
     Connection = Conexao
@@ -224,5 +224,10 @@ inherited dmPessoa: TdmPessoa
       ProviderFlags = []
       Size = 150
     end
+  end
+  object dsFuncionario: TDataSource
+    DataSet = sqlFuncionario
+    Left = 312
+    Top = 80
   end
 end

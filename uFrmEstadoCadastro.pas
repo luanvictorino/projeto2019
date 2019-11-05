@@ -159,8 +159,6 @@ begin
     Exit;
   end;
 
-  if poIdPais.NewValue = poIdPais.OldValue then
-    Exit;
   oDmPais := TdmPais.Create(nil);
   oFrmPaisConsulta := PegarConsultaPais(oDmPais);
   try
