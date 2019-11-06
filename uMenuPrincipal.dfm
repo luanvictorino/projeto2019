@@ -68,11 +68,8 @@ object fMenuPrincipal: TfMenuPrincipal
         OnClick = imSairClick
       end
     end
-    object Consulta1: TMenuItem
-      Caption = 'Alterar Time'
-    end
-    object este1: TMenuItem
-      Caption = 'Teste'
+    object Agenda1: TMenuItem
+      Caption = 'Agenda'
     end
   end
 end

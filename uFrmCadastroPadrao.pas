@@ -123,6 +123,7 @@ var
   bEncontrouErro: boolean;
 begin
   Result := False;
+
   bEncontrouErro := QueryCadastro.ApplyUpdates(0) <> 0;
   if bEncontrouErro then
     Exit;
@@ -177,6 +178,7 @@ begin
 
   if QueryCadastro.State in dsEditModes then
     QueryCadastro.Cancel;
+
 
   QueryCadastro.Delete;
   if not ComitarAlteracoes then

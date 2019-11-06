@@ -89,6 +89,7 @@ var
 begin
   if sConteudoConsulta = EmptyStr then
     Exit;
+
   sWhere := Format(' WHERE %s LIKE :PARAMETRO', [CampoBusca]);
   QueryConsulta.SQL.Add(sWhere);
   QueryConsulta.Params.ParamByName('PARAMETRO').Value := Format('%%%s%%', [sConteudoConsulta]);

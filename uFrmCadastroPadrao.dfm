@@ -19,7 +19,7 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
     Top = 0
     Width = 655
     Height = 375
-    ActivePage = tsCadastroPadrao
+    ActivePage = tsConsPadrao
     Align = alClient
     TabOrder = 0
     object tsConsPadrao: TTabSheet
@@ -39,7 +39,6 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
           Height = 25
           Caption = '&Novo'
           TabOrder = 0
-          OnClick = btNovoClick
         end
       end
     end

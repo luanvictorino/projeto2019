@@ -4,6 +4,7 @@ inherited FrmPaisCadastro: TFrmPaisCadastro
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
+    ActivePage = tsCadastroPadrao
     inherited tsConsPadrao: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24

@@ -22,12 +22,11 @@ type
     imEstado: TMenuItem;
     N1: TMenuItem;
     imSair: TMenuItem;
-    Consulta1: TMenuItem;
     sbPrincipal: TStatusBar;
     imPais: TMenuItem;
     Funo1: TMenuItem;
     imes1: TMenuItem;
-    este1: TMenuItem;
+    Agenda1: TMenuItem;
     procedure imPessoaClick(Sender: TObject);
     procedure imCidadeClick(Sender: TObject);
     procedure imPaisClick(Sender: TObject);

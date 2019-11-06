@@ -34,9 +34,9 @@ object FrmConsultaPadrao: TFrmConsultaPadrao
           ExplicitWidth = 632
         end
         inherited btConsultar: TBitBtn
-          Left = 653
+          Left = 651
           Action = actConsultar
-          ExplicitLeft = 653
+          ExplicitLeft = 651
         end
       end
     end
@@ -56,6 +56,10 @@ object FrmConsultaPadrao: TFrmConsultaPadrao
           Height = 290
         end
       end
+    end
+    inherited dsConsulta: TDataSource
+      Left = 630
+      Top = 141
     end
   end
   object pnlControles: TPanel

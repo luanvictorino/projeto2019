@@ -102,112 +102,87 @@
         </DelphiCompile>
         <DCCReference Include="uMenuPrincipal.pas">
             <Form>fMenuPrincipal</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uFrameConsultaPadrao.pas">
             <Form>FrameConsultaPadrao</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="uFrmCadastroPadrao.pas">
             <Form>FrmCadastroPadrao</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uFrmCidadeCadastro.pas">
             <Form>FrmCidadeCadastro</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uConfiguracaoConsulta.pas"/>
         <DCCReference Include="uDataModulePadrao.pas">
             <Form>DataModulePadrao</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="uDMCidade.pas">
             <Form>dmCidade</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="uDMPessoa.pas">
             <Form>dmPessoa</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="uDMPais.pas">
             <Form>dmPais</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="uFrmEstadoCadastro.pas">
             <Form>FrmEstadoCadastro</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uDMEstado.pas">
             <Form>dmEstado</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="uFrmConsultaPadrao.pas">
             <Form>FrmConsultaPadrao</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uFrmPaisConsulta.pas">
             <Form>FrmPaisConsulta</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uFrmPaisCadastro.pas">
             <Form>FrmPaisCadastro</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uFrmEstadoConsulta.pas">
             <Form>FrmEstadoConsulta</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uFrmCidadeConsulta.pas">
             <Form>FrmCidadeConsulta</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uFrmPessoaCadastro.pas">
             <Form>FrmPessoaCadastro</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uFrmPessoaConsulta.pas">
             <Form>FrmPessoaConsulta</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uFrmFuncaoConsulta.pas">
             <Form>FrmFuncaoConsulta</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uFrmFuncaoCadastro.pas">
             <Form>FrmFuncaoCadastro</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uDMFuncao.pas">
             <Form>dmFuncao</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="uFrmTimeConsulta.pas">
             <Form>FrmTimeConsulta</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uFrmTimeCadastro.pas">
             <Form>FrmTimeCadastro</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uDMTimes.pas">
             <Form>dmTimes</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="uFrmTimeEntrar.pas">
             <Form>FrmTimeEntrar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uFrmTimeSair.pas">
             <Form>FrmTimeSair</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <None Include="Projeto2019.todo"/>
         <BuildConfiguration Include="Release">
