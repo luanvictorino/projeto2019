@@ -41,7 +41,7 @@ type
     procedure MontarSQLWhere(const sConteudoConsulta: string);
     procedure Consultar(const sConteudoConsulta: string);
   public
-    procedure ExecutarConsulta(const TextoConsulta: string = '');
+    procedure ExecutarConsulta(const TextoConsulta: string = ''); virtual;
     procedure SelecionarRegistro;
     property CampoChave: string read FCampoChave write SetCampoChave;
     property CampoBusca: string read FCampoBusca write SetCampoBusca;

@@ -101,7 +101,17 @@ begin
   if bExecutarAdapter then
     Result := ComitarSchemaAdapter
   else
-    Result := ComitarQuery;
+  begin
+    try
+      Result := ComitarQuery;
+    except
+      on E: Exception do
+      begin
+        ShowMessage('Erro: ' + E.Message);
+      end;
+    end;
+  end;
+
 end;
 
 function TFrmCadastroPadrao.ComitarSchemaAdapter: boolean;
@@ -183,8 +193,8 @@ begin
   QueryCadastro.Delete;
   if not ComitarAlteracoes then
     Exit;
-  ShowMessage('O registro foi excluído com sucesso!');
 
+  ShowMessage('O registro foi excluído com sucesso!');
   pgPadrao.ActivePage := tsConsPadrao;
 end;
 

@@ -3,7 +3,7 @@ object fMenuPrincipal: TfMenuPrincipal
   Top = 0
   Caption = 'Menu Principal'
   ClientHeight = 367
-  ClientWidth = 748
+  ClientWidth = 736
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,7 +19,7 @@ object fMenuPrincipal: TfMenuPrincipal
   object sbPrincipal: TStatusBar
     Left = 0
     Top = 348
-    Width = 748
+    Width = 736
     Height = 19
     Panels = <
       item
@@ -70,6 +70,11 @@ object fMenuPrincipal: TfMenuPrincipal
     end
     object Agenda1: TMenuItem
       Caption = 'Agenda'
+      OnClick = Agenda1Click
     end
+  end
+  object Timer1: TTimer
+    Left = 744
+    Top = 168
   end
 end

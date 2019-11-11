@@ -1,60 +1,60 @@
-inherited FrmEstadoCadastro: TFrmEstadoCadastro
-  Caption = 'Cadastro de Estado'
-  Position = poScreenCenter
+inherited FrmAgendaCadastro: TFrmAgendaCadastro
+  Caption = 'Agendamento'
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
-    ActivePage = tsCadastroPadrao
     inherited tsCadastroPadrao: TTabSheet
-      ParentShowHint = False
-      ShowHint = True
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 647
-      ExplicitHeight = 347
-      object lbCdEstado: TLabel [0]
+      object Label1: TLabel [0]
         Left = 12
         Top = 5
         Width = 33
         Height = 13
         Caption = 'C'#243'digo'
-        FocusControl = dfCdEstado
+        FocusControl = DBEdit1
       end
-      object lbNmEstado: TLabel [1]
+      object Label2: TLabel [1]
         Left = 12
         Top = 45
-        Width = 39
+        Width = 62
         Height = 13
-        Caption = 'Estado*'
-        FocusControl = dfNmEstado
+        Caption = 'C'#243'd Pessoa*'
+        FocusControl = DBEdit2
       end
-      object lbUfEstado: TLabel [2]
+      object Label3: TLabel [2]
         Left = 12
-        Top = 85
-        Width = 19
+        Top = 89
+        Width = 52
         Height = 13
-        Caption = 'UF*'
-        FocusControl = dfUfEstado
+        Caption = 'Descri'#231#227'o*'
+        FocusControl = DBEdit3
       end
-      object lbCdPais: TLabel [3]
+      object Label4: TLabel [3]
         Left = 12
-        Top = 125
-        Width = 47
+        Top = 129
+        Width = 29
         Height = 13
-        Caption = 'C'#243'd Pa'#237's*'
-        FocusControl = dfCdPais
+        Caption = 'Data*'
+        FocusControl = DBEdit4
       end
-      object lbNmPais: TLabel [4]
+      object Label5: TLabel [4]
+        Left = 95
+        Top = 129
+        Width = 23
+        Height = 13
+        Caption = 'Hora'
+        FocusControl = DBEdit5
+      end
+      object Label6: TLabel [5]
         Left = 92
-        Top = 125
-        Width = 19
+        Top = 45
+        Width = 34
         Height = 13
-        Caption = 'Pa'#237's'
-        FocusControl = dfNmPais
+        Caption = 'Pessoa'
+        FocusControl = DBEdit6
       end
-      object btConsultarPais: TSpeedButton [5]
-        Left = 63
-        Top = 140
+      object SpeedButton1: TSpeedButton [6]
+        Left = 64
+        Top = 63
         Width = 23
         Height = 22
         Glyph.Data = {
@@ -88,63 +88,71 @@ inherited FrmEstadoCadastro: TFrmEstadoCadastro
           07000000898989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFF
           FFFFFFCFCFCF545454050505000000131313717171E2E2E2FFFFFFFFFFFFFFFF
           FFFFFFFFFFFFFFFFFFFFFFFFFF00}
-        OnClick = btConsultarPaisClick
+        OnClick = SpeedButton1Click
       end
-      object dfCdEstado: TDBEdit
+      object DBEdit1: TDBEdit
         Left = 12
         Top = 20
         Width = 50
         Height = 21
-        DataField = 'IDESTADO'
+        DataField = 'IDAGENDA'
         DataSource = dsCadastro
         Enabled = False
         TabOrder = 1
       end
-      object dfNmEstado: TDBEdit
+      object DBEdit2: TDBEdit
         Left = 12
-        Top = 60
-        Width = 616
+        Top = 63
+        Width = 50
         Height = 21
-        CharCase = ecUpperCase
-        DataField = 'NMESTADO'
+        DataField = 'IDPESSOA'
         DataSource = dsCadastro
         TabOrder = 2
       end
-      object dfUfEstado: TDBEdit
+      object DBEdit3: TDBEdit
         Left = 12
-        Top = 100
-        Width = 50
+        Top = 104
+        Width = 616
         Height = 21
         CharCase = ecUpperCase
-        DataField = 'UFESTADO'
+        DataField = 'NMDESCRICAO'
         DataSource = dsCadastro
         TabOrder = 3
       end
-      object dfCdPais: TDBEdit
+      object DBEdit4: TDBEdit
         Left = 12
-        Top = 140
-        Width = 50
+        Top = 144
+        Width = 77
         Height = 21
-        Hint = 'Pressione CTRL+ENTER para pesquisar pelo ID'
-        DataField = 'IDPAIS'
+        DataField = 'DTDATA'
         DataSource = dsCadastro
         TabOrder = 4
       end
-      object dfNmPais: TDBEdit
+      object DBEdit5: TDBEdit
+        Left = 95
+        Top = 144
+        Width = 77
+        Height = 21
+        DataField = 'HORA'
+        DataSource = dsCadastro
+        TabOrder = 5
+      end
+      object DBEdit6: TDBEdit
         Left = 92
-        Top = 140
+        Top = 64
         Width = 536
         Height = 21
-        DataField = 'NMPAIS'
+        DataField = 'NMPESSOA'
         DataSource = dsCadastro
         Enabled = False
-        ReadOnly = True
-        TabOrder = 5
+        TabOrder = 6
       end
     end
   end
   inherited dsCadastro: TDataSource
-    DataSet = dmEstado.sqlEstado
+    DataSet = dmAgenda.sqlAgenda
     OnDataChange = dsCadastroDataChange
+    Left = 540
+    Top = 120
   end
 end

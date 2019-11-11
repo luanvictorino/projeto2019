@@ -5,6 +5,7 @@ inherited dmCidade: TdmCidade
   end
   inherited sqlConsulta: TFDQuery
     AfterOpen = sqlConsultaAfterOpen
+    CachedUpdates = True
     SQL.Strings = (
       'select *'
       'from cidade'

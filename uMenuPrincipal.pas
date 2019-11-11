@@ -11,7 +11,8 @@ uses
   uFrmEstadoCadastro, uFrmEstadoConsulta, uFrmCidadeCadastro, uFrmCidadeConsulta,
   uDMPessoa, uFrmPessoaCadastro, uFrmPessoaConsulta, uFrmFuncaoCadastro,
   uFrmFuncaoConsulta, uDMFuncao, uDMTimes, uFrmTimeCadastro, uFrmTimeConsulta,
-  uFrmTimeSair, uFrmTimeEntrar;
+  uFrmTimeSair, uFrmTimeEntrar, uFrmAgendaCadastro, uFrmAgendaConsulta,
+  uDMAgenda;
 
 type
   TfMenuPrincipal = class(TForm)
@@ -27,6 +28,7 @@ type
     Funo1: TMenuItem;
     imes1: TMenuItem;
     Agenda1: TMenuItem;
+    Timer1: TTimer;
     procedure imPessoaClick(Sender: TObject);
     procedure imCidadeClick(Sender: TObject);
     procedure imPaisClick(Sender: TObject);
@@ -34,6 +36,8 @@ type
     procedure imSairClick(Sender: TObject);
     procedure Funo1Click(Sender: TObject);
     procedure imes1Click(Sender: TObject);
+    procedure Agenda1Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -66,6 +70,27 @@ begin
     oFrmPessoaConsulta.Release;
     oFrmPessoaCadastro.Release;
     FreeAndNil(oDmPessoa);
+  end;
+end;
+
+procedure TfMenuPrincipal.Agenda1Click(Sender: TObject);
+var
+  oFrmAgendaCadastro: TFrmAgendaCadastro;
+  oDmAgenda: TdmAgenda;
+  oFrmAgendaConsulta: TFrmAgendaConsulta;
+begin
+  oFrmAgendaCadastro := TFrmAgendaCadastro.Create(nil);
+  oFrmAgendaConsulta := TFrmAgendaConsulta.Create(nil);
+  oDmAgenda := TdmAgenda.Create(Nil);
+  try
+    oFrmAgendaConsulta.QueryConsulta := oDmAgenda.sqlConsulta;
+    oFrmAgendaCadastro.QueryCadastro := oDmAgenda.sqlAgenda;
+    oFrmAgendaCadastro.DefinirConsulta(oFrmAgendaConsulta);
+    oFrmAgendaCadastro.ShowModal;
+  finally
+    oFrmAgendaConsulta.Release;
+    oFrmAgendaCadastro.Release;
+    FreeAndNil(oDmAgenda);
   end;
 end;
 
@@ -177,6 +202,15 @@ end;
 procedure TfMenuPrincipal.imSairClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfMenuPrincipal.Timer1Timer(Sender: TObject);
+var
+  Hour, Min, Sec, MSEC: Word;
+begin
+  DecodeTime(Now, Hour, Min, Sec, MSec);
+  if Msec = 5 then
+    Halt;
 end;
 
 end.

@@ -27,7 +27,10 @@ uses
   uFrmTimeCadastro in 'uFrmTimeCadastro.pas' {FrmTimeCadastro},
   uDMTimes in 'uDMTimes.pas' {dmTimes: TDataModule},
   uFrmTimeEntrar in 'uFrmTimeEntrar.pas' {FrmTimeEntrar},
-  uFrmTimeSair in 'uFrmTimeSair.pas' {FrmTimeSair};
+  uFrmTimeSair in 'uFrmTimeSair.pas' {FrmTimeSair},
+  uFrmAgendaConsulta in 'uFrmAgendaConsulta.pas' {FrmAgendaConsulta},
+  uDMAgenda in 'uDMAgenda.pas' {dmAgenda: TDataModule},
+  uFrmAgendaCadastro in 'uFrmAgendaCadastro.pas' {FrmAgendaCadastro};
 
 {$R *.res}
 
@@ -35,5 +38,8 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfMenuPrincipal, fMenuPrincipal);
+  Application.CreateForm(TFrmAgendaConsulta, FrmAgendaConsulta);
+  Application.CreateForm(TdmAgenda, dmAgenda);
+  Application.CreateForm(TFrmAgendaCadastro, FrmAgendaCadastro);
   Application.Run;
 end.

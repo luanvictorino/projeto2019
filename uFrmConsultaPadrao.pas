@@ -60,6 +60,7 @@ end;
 procedure TFrmConsultaPadrao.actConsultarExecute(Sender: TObject);
 begin
   fmeConsulta.ExecutarConsulta();
+
 end;
 
 procedure TFrmConsultaPadrao.actFecharExecute(Sender: TObject);

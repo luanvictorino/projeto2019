@@ -184,6 +184,19 @@
         <DCCReference Include="uFrmTimeSair.pas">
             <Form>FrmTimeSair</Form>
         </DCCReference>
+        <DCCReference Include="uFrmAgendaConsulta.pas">
+            <Form>FrmAgendaConsulta</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uDMAgenda.pas">
+            <Form>dmAgenda</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="uFrmAgendaCadastro.pas">
+            <Form>FrmAgendaCadastro</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include="Projeto2019.todo"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

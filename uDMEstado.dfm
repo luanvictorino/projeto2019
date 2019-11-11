@@ -6,7 +6,8 @@ inherited dmEstado: TdmEstado
       'select *'
       'from estado'
       'where nmEstado like :nmEstado')
-    Left = 272
+    Left = 304
+    Top = 8
     ParamData = <
       item
         Name = 'NMESTADO'
@@ -27,8 +28,8 @@ inherited dmEstado: TdmEstado
       'from ESTADO'
       '  left join PAIS on PAIS.IDPAIS = ESTADO.IDPAIS'
       'where IDESTADO = :IDESTADO')
-    Left = 96
-    Top = 80
+    Left = 240
+    Top = 8
     ParamData = <
       item
         Name = 'IDESTADO'

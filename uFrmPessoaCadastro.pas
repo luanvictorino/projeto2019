@@ -51,7 +51,6 @@ type
     btSairTime: TButton;
     grTimesHistorico: TDBGrid;
     dsTimesHistorico: TDataSource;
-    ClientDataSet1: TClientDataSet;
     procedure btConsultarCidadeClick(Sender: TObject);
     procedure dsCadastroDataChange(Sender: TObject; Field: TField);
     procedure btConsultarFuncaoClick(Sender: TObject);
