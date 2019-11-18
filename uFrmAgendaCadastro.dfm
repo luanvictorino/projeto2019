@@ -3,7 +3,26 @@ inherited FrmAgendaCadastro: TFrmAgendaCadastro
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
+    ActivePage = tsConsPadrao
+    ExplicitWidth = 665
+    ExplicitHeight = 385
+    inherited tsConsPadrao: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 657
+      ExplicitHeight = 357
+      inherited pnConsPadrao: TPanel
+        Top = 322
+        Width = 657
+        ExplicitTop = 322
+        ExplicitWidth = 657
+      end
+    end
     inherited tsCadastroPadrao: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 657
+      ExplicitHeight = 357
       object Label1: TLabel [0]
         Left = 12
         Top = 5
@@ -89,6 +108,10 @@ inherited FrmAgendaCadastro: TFrmAgendaCadastro
           FFFFFFCFCFCF545454050505000000131313717171E2E2E2FFFFFFFFFFFFFFFF
           FFFFFFFFFFFFFFFFFFFFFFFFFF00}
         OnClick = SpeedButton1Click
+      end
+      inherited pnCadastroPadrao: TPanel
+        ExplicitTop = 316
+        ExplicitWidth = 657
       end
       object DBEdit1: TDBEdit
         Left = 12

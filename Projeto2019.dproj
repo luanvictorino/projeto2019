@@ -197,6 +197,8 @@
             <Form>FrmAgendaCadastro</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uLookUp.pas"/>
+        <DCCReference Include="uILookUp.pas"/>
         <None Include="Projeto2019.todo"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

@@ -4,18 +4,19 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
-    ActivePage = tsCadastroPadrao
     inherited tsConsPadrao: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
-      ExplicitWidth = 647
-      ExplicitHeight = 347
+      ExplicitWidth = 657
+      ExplicitHeight = 357
+      inherited pnConsPadrao: TPanel
+        Top = 322
+        Width = 657
+        ExplicitTop = 322
+        ExplicitWidth = 657
+      end
     end
     inherited tsCadastroPadrao: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 647
-      ExplicitHeight = 347
       inherited pnCadastroPadrao: TPanel
         TabOrder = 1
         inherited btSalvar: TBitBtn
@@ -26,17 +27,13 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
       object pgCadastro: TPageControl
         Left = 0
         Top = 0
-        Width = 647
-        Height = 306
+        Width = 657
+        Height = 316
         ActivePage = tsCadastroFuncionario
         Align = alClient
         TabOrder = 0
         object tsCadastroPessoa: TTabSheet
           Caption = 'Pessoa'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lbCdPessoa: TLabel
             Left = 10
             Top = 2
@@ -200,6 +197,7 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
             Height = 21
             DataField = 'NMCIDADE'
             DataSource = dsCadastro
+            Enabled = False
             ReadOnly = True
             TabOrder = 7
           end

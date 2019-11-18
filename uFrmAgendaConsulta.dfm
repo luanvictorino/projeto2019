@@ -11,5 +11,10 @@ inherited FrmAgendaConsulta: TFrmAgendaConsulta
         end
       end
     end
+    inherited dsConsulta: TDataSource
+      DataSet = dmAgenda.sqlConsulta
+      Left = 582
+      Top = 181
+    end
   end
 end

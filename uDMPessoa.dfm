@@ -109,7 +109,7 @@ inherited dmPessoa: TdmPessoa
       'from FUNCIONARIO'
       '  left join FUNCAO on FUNCIONARIO.IDFUNCAO = FUNCAO.IDFUNCAO'
       'where IDPESSOA = :IDPESSOA')
-    Left = 304
+    Left = 312
     Top = 24
     ParamData = <
       item

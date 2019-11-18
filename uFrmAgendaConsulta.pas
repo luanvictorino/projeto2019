@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrmConsultaPadrao, System.Actions,
   Vcl.ActnList, Vcl.StdCtrls, Vcl.ExtCtrls, uFrameConsultaPadrao,
-  FireDAC.Comp.Client, uConfiguracaoConsulta;
+  FireDAC.Comp.Client, uConfiguracaoConsulta, uDMAgenda;
 
 type
   TFrmAgendaConsulta = class(TFrmConsultaPadrao)

@@ -107,6 +107,7 @@ begin
     except
       on E: Exception do
       begin
+        Result := False;
         ShowMessage('Erro: ' + E.Message);
       end;
     end;

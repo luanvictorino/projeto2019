@@ -1,6 +1,7 @@
 inherited dmAgenda: TdmAgenda
   OldCreateOrder = True
   inherited sqlConsulta: TFDQuery
+    Active = True
     AfterOpen = sqlConsultaAfterOpen
     SQL.Strings = (
       'select agenda.*, pessoa.nmPessoa from agenda'

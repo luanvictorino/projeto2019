@@ -26,14 +26,12 @@ type
   private
     { Private declarations }
     FNomeTabela: string;
-    FCampoChave: string;
     FCampoBusca: string;
     FOnSelecionarRegistro: TOnSelecionarRegistro;
     FQueryConsulta: TFDQuery;
     procedure SelecionarRegistroInternal;
     procedure SetNomeTabela(const Value: string);
     procedure SetQueryConsulta(const Value: TFDQuery);
-    procedure SetCampoChave(const Value: string);
     procedure SetCaption(const Value: string);
     procedure SetCampoBusca(const Value: string);
     procedure MontarSQLBasico;
@@ -43,7 +41,6 @@ type
   public
     procedure ExecutarConsulta(const TextoConsulta: string = ''); virtual;
     procedure SelecionarRegistro;
-    property CampoChave: string read FCampoChave write SetCampoChave;
     property CampoBusca: string read FCampoBusca write SetCampoBusca;
     property NomeTabela: string read FNomeTabela write SetNomeTabela;
     property QueryConsulta: TFDQuery read FQueryConsulta write SetQueryConsulta;
@@ -121,11 +118,6 @@ end;
 procedure TFrameConsultaPadrao.SetCampoBusca(const Value: string);
 begin
   FCampoBusca := Value;
-end;
-
-procedure TFrameConsultaPadrao.SetCampoChave(const Value: string);
-begin
-  FCampoChave := Value;
 end;
 
 procedure TFrameConsultaPadrao.SetCaption(const Value: string);

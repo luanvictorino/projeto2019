@@ -30,11 +30,14 @@ uses
   uFrmTimeSair in 'uFrmTimeSair.pas' {FrmTimeSair},
   uFrmAgendaConsulta in 'uFrmAgendaConsulta.pas' {FrmAgendaConsulta},
   uDMAgenda in 'uDMAgenda.pas' {dmAgenda: TDataModule},
-  uFrmAgendaCadastro in 'uFrmAgendaCadastro.pas' {FrmAgendaCadastro};
+  uFrmAgendaCadastro in 'uFrmAgendaCadastro.pas' {FrmAgendaCadastro},
+  uLookUp in 'uLookUp.pas',
+  uILookUp in 'uILookUp.pas';
 
 {$R *.res}
 
 begin
+  ReportMemoryLeaksOnShutdown := True;
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfMenuPrincipal, fMenuPrincipal);

@@ -1,9 +1,10 @@
 object FrmConsultaPadrao: TFrmConsultaPadrao
   Left = 0
   Top = 0
+  BorderStyle = bsSingle
   Caption = 'Consulta Padr'#227'o'
-  ClientHeight = 432
-  ClientWidth = 766
+  ClientHeight = 442
+  ClientWidth = 776
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,44 +17,44 @@ object FrmConsultaPadrao: TFrmConsultaPadrao
   inline fmeConsulta: TFrameConsultaPadrao
     Left = 0
     Top = 0
-    Width = 766
-    Height = 392
+    Width = 776
+    Height = 402
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 766
-    ExplicitHeight = 392
+    ExplicitWidth = 776
+    ExplicitHeight = 402
     inherited pnlDadosConsulta: TPanel
-      Width = 766
+      Width = 776
       ParentColor = True
-      ExplicitWidth = 766
+      ExplicitWidth = 776
       inherited gbConsPadrao: TGroupBox
-        Width = 744
-        ExplicitWidth = 744
+        Width = 754
+        ExplicitWidth = 754
         inherited dfConsPadrao: TEdit
-          Width = 632
-          ExplicitWidth = 632
+          Width = 642
+          ExplicitWidth = 642
         end
         inherited btConsultar: TBitBtn
-          Left = 651
+          Left = 661
           Action = actConsultar
-          ExplicitLeft = 651
+          ExplicitLeft = 661
         end
       end
     end
     inherited pnlResultadoConsulta: TPanel
-      Width = 766
-      Height = 319
+      Width = 776
+      Height = 329
       ParentColor = True
-      ExplicitWidth = 766
-      ExplicitHeight = 319
+      ExplicitWidth = 776
+      ExplicitHeight = 329
       inherited gbResultadoConsulta: TGroupBox
-        Width = 746
-        Height = 307
-        ExplicitWidth = 746
-        ExplicitHeight = 307
+        Width = 756
+        Height = 317
+        ExplicitWidth = 756
+        ExplicitHeight = 317
         inherited grConsPadrao: TDBGrid
-          Width = 742
-          Height = 290
+          Width = 752
+          Height = 300
         end
       end
     end
@@ -64,8 +65,8 @@ object FrmConsultaPadrao: TFrmConsultaPadrao
   end
   object pnlControles: TPanel
     Left = 0
-    Top = 392
-    Width = 766
+    Top = 402
+    Width = 776
     Height = 40
     Align = alBottom
     BevelOuter = bvNone
@@ -74,7 +75,7 @@ object FrmConsultaPadrao: TFrmConsultaPadrao
     ShowCaption = False
     TabOrder = 1
     DesignSize = (
-      766
+      776
       40)
     object btnSelecionar: TButton
       Left = 11
@@ -85,7 +86,7 @@ object FrmConsultaPadrao: TFrmConsultaPadrao
       TabOrder = 0
     end
     object btnFechar: TButton
-      Left = 680
+      Left = 690
       Top = 6
       Width = 75
       Height = 25

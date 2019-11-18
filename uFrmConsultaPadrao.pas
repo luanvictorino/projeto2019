@@ -60,7 +60,6 @@ end;
 procedure TFrmConsultaPadrao.actConsultarExecute(Sender: TObject);
 begin
   fmeConsulta.ExecutarConsulta();
-
 end;
 
 procedure TFrmConsultaPadrao.actFecharExecute(Sender: TObject);
@@ -81,7 +80,6 @@ procedure TFrmConsultaPadrao.DefinirConfiguracoesConsulta(const ConfiguracaoCons
 begin
   fmeConsulta.NomeTabela := ConfiguracaoConsulta.NomeTabela;
   fmeConsulta.CampoBusca := ConfiguracaoConsulta.CampoBusca;
-  fmeConsulta.CampoChave := ConfiguracaoConsulta.CampoChave;
   fmeConsulta.Caption := ConfiguracaoConsulta.Caption;
   fmeConsulta.OnSelecionarRegistro := OnSelecionarRegistroInternal;
 end;
