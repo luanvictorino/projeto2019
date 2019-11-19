@@ -7,14 +7,16 @@ inherited FrmCidadeCadastro: TFrmCidadeCadastro
     inherited tsConsPadrao: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
-      ExplicitWidth = 647
-      ExplicitHeight = 347
+      ExplicitWidth = 657
+      ExplicitHeight = 357
+      inherited pnConsPadrao: TPanel
+        Top = 322
+        Width = 657
+      end
     end
     inherited tsCadastroPadrao: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
-      ExplicitWidth = 647
-      ExplicitHeight = 347
       object lbCdCidade: TLabel [0]
         Left = 12
         Top = 5

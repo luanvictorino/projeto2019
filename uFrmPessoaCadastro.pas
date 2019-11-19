@@ -61,7 +61,9 @@ type
     procedure dsCadastroStateChange(Sender: TObject);
   private
     FFuncaoLookup: ILookUp;
+    FCidadeLookup: ILookUp;
     function RetornaFuncaoLookup(const poIdFuncao, poNmCampo: TField): ILookUp;
+    function RetornaCidadeLookup(const poIdCidade, poNmCampo: TField): ILookUp;
     function ValidarNmPessoa: boolean;
     function ValidarIdCidade: boolean;
     procedure OnSelecionarCidade(const RegistroAtual: TDataSet);
@@ -72,7 +74,6 @@ type
     function GetQryTimesHistorico: TFDQuery;
     procedure SetQryFuncionario(const Value: TFDQuery);
     procedure SetQryTimesHistorico(const Value: TFDQuery);
-    procedure LookupCidade(const poIdCidade, poNmCidade: TField);
     function TestarPodeHabilitarEntradaTime: boolean;
     function TestarPodeHabilitarSaidaTime: boolean;
     procedure ControlarBotoesEntradaSaidaTime;
@@ -166,31 +167,6 @@ begin
   Result.OnSelecionarRegistro := OnSelecionarFuncao;
 end;
 
-function TFrmPessoaCadastro.RetornaFuncaoLookup(const poIdFuncao, poNmCampo: Tfield): ILookUp;
-begin
-  if not Assigned(FFuncaoLookup) then
-  begin
-    FFuncaoLookup := TLookUp.Create(
-      function(const poIdCampo: TField): boolean
-      var
-        oDmFuncao: TdmFuncao;
-        oFrmFuncaoConsulta: TfrmFuncaoConsulta;
-      begin
-        oDmFuncao := TdmFuncao.Create(nil);
-        oFrmFuncaoConsulta := PegarConsultaFuncao(oDmFuncao);
-        try
-          Result := oFrmFuncaoConsulta.SelecionarID('IDFUNCAO', poIdFuncao.AsInteger);
-        finally
-          oFrmFuncaoConsulta.Release;
-          FreeAndNil(oDmFuncao);
-        end;
-      end);
-    FFuncaoLookup.IdCampo := poIdFuncao;
-    FFuncaoLookup.NmCampo := poNmCampo;
-  end;
-  result := FFuncaoLookup;
-end;
-
 procedure TFrmPessoaCadastro.OnSelecionarFuncao(const RegistroAtual: TDataSet);
 var
   oIdFuncaoOrigem: TField;
@@ -234,7 +210,7 @@ begin
   if not(Field.DataSet.State in dsEditModes) then
     Exit;
 
-  if Field.FieldName.Equals('IDFUNCAO') then
+  if Field.FieldName.ToUpper.Equals('IDFUNCAO') then
   begin
     oNmFuncao := qryFuncionario.FindField('nmFuncao');
     oLookup := RetornaFuncaoLookup(Field, oNmFuncao);
@@ -242,7 +218,35 @@ begin
   end;
 end;
 
+function TFrmPessoaCadastro.RetornaFuncaoLookup(const poIdFuncao, poNmCampo: Tfield): ILookUp;
+begin
+  if not Assigned(FFuncaoLookup) then
+  begin
+    FFuncaoLookup := TLookUp.Create(
+      function(const poIdCampo: TField): boolean
+      var
+        oDmFuncao: TdmFuncao;
+        oFrmFuncaoConsulta: TfrmFuncaoConsulta;
+      begin
+        oDmFuncao := TdmFuncao.Create(nil);
+        oFrmFuncaoConsulta := PegarConsultaFuncao(oDmFuncao);
+        try
+          Result := oFrmFuncaoConsulta.SelecionarID('IDFUNCAO', poIdFuncao.AsInteger);
+        finally
+          oFrmFuncaoConsulta.Release;
+          FreeAndNil(oDmFuncao);
+        end;
+      end);
+    FFuncaoLookup.IdCampo := poIdFuncao;
+    FFuncaoLookup.NmCampo := poNmCampo;
+  end;
+  result := FFuncaoLookup;
+end;
+
 procedure TFrmPessoaCadastro.dsCadastroDataChange(Sender: TObject; Field: TField);
+var
+  oNmCidade: TField;
+  oLookUp: ILookUp;
 begin
   inherited;
   if not Assigned(Field) then
@@ -252,45 +256,43 @@ begin
     Exit;
 
   if Field.FieldName.ToUpper.Equals('IDCIDADE') then
-    LookupCidade(Field, QueryCadastro.FindField('NMCIDADE'));
+  begin
+    oNmCidade := QueryCadastro.FindField('nmCidade');
+    oLookUp :=  RetornaCidadeLookup(Field, oNmCidade);
+    oLookUp.Executar;
+  end;
+end;
+
+function TFrmPessoaCadastro.RetornaCidadeLookup(const poIdCidade,
+  poNmCampo: TField): ILookUp;
+begin
+  if not Assigned(FCidadeLookup) then
+  begin
+    FCidadeLookup := TLookUp.Create(
+      function(const poIdCampo: TField): boolean
+      var
+        oDmCidade: TDmCidade;
+        oFrmCidadeConsulta: TFrmCidadeConsulta;
+      begin
+        oDmCidade := TDmCidade.Create(nil);
+        oFrmCidadeConsulta := PegarConsultaCidade(oDmCidade);
+        try
+          Result := oFrmCidadeConsulta.SelecionarID('IDCIDADE', poIdCidade.AsInteger);
+        finally
+          oFrmCidadeConsulta.Release;
+          FreeAndNil(oDmCidade);
+        end;
+      end);
+    FCidadeLookup.IdCampo := poIdCidade;
+    FCidadeLookup.NmCampo := poNmCampo;
+  end;
+  result := FCidadeLookup;
 end;
 
 procedure TFrmPessoaCadastro.dsCadastroStateChange(Sender: TObject);
 begin
   inherited;
   ControlarBotoesEntradaSaidaTime;
-end;
-
-procedure TFrmPessoaCadastro.LookupCidade(const poIdCidade, poNmCidade: TField);
-var
-  oDmCidade: TdmCidade;
-  oFrmCidadeConsulta: TfrmCidadeConsulta;
-  bRegistroSelecionado: boolean;
-begin
-  if not(poIdCidade.DataSet.State in dsEditModes) then
-    Exit;
-
-  if poIdCidade.IsNull then
-  begin
-    poNmCidade.Clear;
-    Exit;
-  end;
-
-  if poIdCidade.NewValue = poIdCidade.OldValue then
-    Exit;
-
-  oDmCidade := TdmCidade.Create(nil);
-  oFrmCidadeConsulta := PegarConsultaCidade(oDmCidade);
-  try
-    bRegistroSelecionado := oFrmCidadeConsulta.SelecionarID('IDCIDADE', poIdCidade.AsInteger);
-    if bRegistroSelecionado then
-      Exit;
-    poIdCidade.Clear;
-    poNmCidade.Clear;
-  finally
-    oFrmCidadeConsulta.Release;
-    FreeAndNil(oDmCidade);
-  end;
 end;
 
 function TFrmPessoaCadastro.TestarRegistroValido: boolean;

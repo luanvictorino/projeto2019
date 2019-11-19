@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrmCadastroPadrao, Data.DB, Vcl.StdCtrls,
   Vcl.Mask, Vcl.DBCtrls, Vcl.Buttons, Vcl.ExtCtrls, Vcl.ComCtrls,
-  uDMCidade, uFrmEstadoConsulta, uDMEstado;
+  uDMCidade, uFrmEstadoConsulta, uDMEstado, uILookUp, uLookUp;
 
 type
   TFrmCidadeCadastro = class(TFrmCadastroPadrao)
@@ -22,11 +22,12 @@ type
     procedure btConsultarClick(Sender: TObject);
     procedure dsCadastroDataChange(Sender: TObject; Field: TField);
   private
+    FEstadoLookup: ILookUp;
+    function RetornaEstadoLookup(const poIdEstado, poNmCampo: TField): ILookUp;
     function ValidarNmCidade: boolean;
     function ValidarIdEstado: boolean;
     procedure OnSelecionarEstado(const RegistroAtual: TDataSet);
     function PegarConsultaEstado(const poDmEstado: TdmEstado): TfrmEstadoConsulta;
-    procedure LookupEstado(const poIdEstado, poNmEstado: TField);
   protected
     function TestarRegistroValido: boolean; override;
     function PegarCampoChave: string; override;
@@ -98,6 +99,9 @@ begin
 end;
 
 procedure TFrmCidadeCadastro.dsCadastroDataChange(Sender: TObject; Field: TField);
+var
+  oNmEstado: TField;
+  oLookUp: ILookUp;
 begin
   inherited;
   if not Assigned(Field) then
@@ -107,36 +111,37 @@ begin
     Exit;
 
  if Field.FieldName.ToUpper.Equals('IDESTADO') then
-    LookupEstado(Field, QueryCadastro.FindField('nmEstado'));
+ begin
+  oNmEstado := QueryCadastro.FindField('nmEstado');
+  oLookUp :=  RetornaEstadoLookup(Field, oNmEstado);
+  oLookUp.Executar;
+ end;
 end;
 
-procedure TFrmCidadeCadastro.LookupEstado(const poIdEstado, poNmEstado: TField);
-var
-  oDmEstado: TdmEstado;
-  oFrmEstadoConsulta: TfrmEstadoConsulta;
-  bRegistroSelecionado: boolean;
+function TFrmCidadeCadastro.RetornaEstadoLookup(const poIdEstado,
+  poNmCampo: TField): ILookUp;
 begin
-  if not(poIdEstado.DataSet.State in dsEditModes) then
-    Exit;
-
-  if poIdEstado.IsNull then
+  if not Assigned(FEstadoLookup) then
   begin
-    poNmEstado.Clear;
-    Exit;
+    FEstadoLookup := TLookUp.Create(
+      function(const poIdCampo: TField): boolean
+      var
+        oDmEstado: TDmEstado;
+        oFrmEstadoConsulta: TFrmEstadoConsulta;
+      begin
+        oDmEstado := TDmEstado.Create(nil);
+        oFrmEstadoConsulta := PegarConsultaEstado(oDmEstado);
+        try
+          Result := oFrmEstadoConsulta.SelecionarID('IDESTADO', poIdEstado.AsInteger);
+        finally
+          oFrmEstadoConsulta.Release;
+          FreeAndNil(oDmEstado);
+        end;
+      end);
+      FEstadoLookup.IdCampo := poIdEstado;
+      FEstadoLookup.NmCampo := poNmCampo;
   end;
-
-  oDmEstado := TdmEstado.Create(nil);
-  oFrmEstadoConsulta := PegarConsultaEstado(oDmEstado);
-  try
-    bRegistroSelecionado := oFrmEstadoConsulta.SelecionarID('IDESTADO', poIdEstado.AsInteger);
-    if bRegistroSelecionado then
-      Exit;
-    poIdEstado.Clear;
-    poNmEstado.Clear;
-  finally
-    oFrmEstadoConsulta.Release;
-    FreeAndNil(oDmEstado);
-  end;
+  Result := FEstadoLookUp;
 end;
 
 procedure TFrmCidadeCadastro.OnSelecionarEstado(const RegistroAtual: TDataSet);
