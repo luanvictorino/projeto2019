@@ -104,7 +104,7 @@ begin
     procedure(const poCampo: TField)
     begin
       poCampo.DisplayLabel := 'Email';
-      poCampo.DisplayWidth := 15;
+      poCampo.DisplayWidth := 20;
     end);
   ConfigurarCampo(DataSet, 'idCidade',
     procedure(const poCampo: TField)

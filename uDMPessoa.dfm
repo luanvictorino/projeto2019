@@ -182,7 +182,7 @@ inherited dmPessoa: TdmPessoa
       'from TIMESHISTORICO'
       '  left join TIMES on TIMESHISTORICO.IDTIMES = TIMES.IDTIMES'
       'where IDPESSOA = :IDPESSOA')
-    Left = 392
+    Left = 400
     Top = 23
     ParamData = <
       item

@@ -33,18 +33,22 @@ type
     FQueryCadastro: TFDQuery;
     procedure SetQueryCadastro(const Value: TFDQuery);
     procedure ExcluirRegistro;
-    procedure LigarDesligarBotoes;
+    procedure HabilitarBotoes;
     function ComitarSchemaAdapter: boolean;
     function ComitarQuery: boolean;
-    procedure SalvarRegistro; virtual;
+    procedure AbrirQuerySemRegistro;
   protected
+    function TestarQueryAlterada(const poDataSet: TDataSet): boolean;
+    procedure SalvarRegistro; virtual;
     procedure OnSelecionarRegistro(const RegistroSelecionado: TDataSet); virtual;
     procedure InserirNovoRegistro; virtual;
     procedure CancelarRegistro; virtual;
     procedure SalvarQryDetalhes; virtual;
+    procedure DadosAlterados(var pbDadosAlterados: boolean); virtual;
     function ComitarAlteracoes: boolean; virtual;
     function TestarRegistroValido: boolean; virtual; abstract;
     function PegarCampoChave: string; virtual; abstract;
+    procedure TratarErroApplyUpdates; virtual;
   public
     procedure DefinirConsulta(const FrmConsultaPadrao: TFrmConsultaPadrao);
     property QueryCadastro: TFDQuery read FQueryCadastro write SetQueryCadastro;
@@ -66,7 +70,7 @@ end;
 
 procedure TFrmCadastroPadrao.dsCadastroStateChange(Sender: TObject);
 begin
-  LigarDesligarBotoes;
+  HabilitarBotoes;
 end;
 
 procedure TFrmCadastroPadrao.btNovoClick(Sender: TObject);
@@ -82,6 +86,14 @@ end;
 procedure TFrmCadastroPadrao.btExcluirClick(Sender: TObject);
 begin
   ExcluirRegistro;
+end;
+
+procedure TFrmCadastroPadrao.AbrirQuerySemRegistro;
+begin
+  QueryCadastro.Params.ClearValues;
+  if QueryCadastro.Active then
+    QueryCadastro.Close;
+  QueryCadastro.Open;
 end;
 
 procedure TFrmCadastroPadrao.btCancelarClick(Sender: TObject);
@@ -112,7 +124,6 @@ begin
       end;
     end;
   end;
-
 end;
 
 function TFrmCadastroPadrao.ComitarSchemaAdapter: boolean;
@@ -137,9 +148,27 @@ begin
 
   bEncontrouErro := QueryCadastro.ApplyUpdates(0) <> 0;
   if bEncontrouErro then
+  begin
+    TratarErroApplyUpdates;
     Exit;
+  end;
   QueryCadastro.CommitUpdates;
   Result := True;
+end;
+
+function TFrmCadastroPadrao.TestarQueryAlterada(const poDataSet: TDataSet): boolean;
+begin
+  Result := False;
+  if not Assigned(poDataSet) then
+    Exit;
+  Result := (poDataSet.State in dsEditModes) or (poDataSet.UpdateStatus <> usUnModified);
+end;
+
+procedure TFrmCadastroPadrao.TratarErroApplyUpdates;
+begin
+  if QueryCadastro.UpdateStatus = usDeleted then
+    QueryCadastro.CancelUpdates;
+  QueryCadastro.Edit;
 end;
 
 {$ENDREGION}
@@ -147,9 +176,7 @@ end;
 
 procedure TFrmCadastroPadrao.InserirNovoRegistro;
 begin
-  QueryCadastro.Params.ClearValues;
-  if not QueryCadastro.Active then
-    QueryCadastro.Open;
+  AbrirQuerySemRegistro;
   QueryCadastro.Insert;
   pgPadrao.ActivePage := tsCadastroPadrao;
 end;
@@ -173,7 +200,6 @@ begin
     Exit;
 
   ShowMessage('Registro salvo!');
-  pgPadrao.ActivePage := tsConsPadrao;
 end;
 
 procedure TFrmCadastroPadrao.ExcluirRegistro;
@@ -190,7 +216,6 @@ begin
   if QueryCadastro.State in dsEditModes then
     QueryCadastro.Cancel;
 
-
   QueryCadastro.Delete;
   if not ComitarAlteracoes then
     Exit;
@@ -202,10 +227,19 @@ end;
 procedure TFrmCadastroPadrao.CancelarRegistro;
 begin
   QueryCadastro.Cancel;
+  AbrirQuerySemRegistro;
   pgPadrao.ActivePage := tsConsPadrao;
 end;
 
 {$ENDREGION}
+
+procedure TFrmCadastroPadrao.DadosAlterados(var pbDadosAlterados: boolean);
+begin
+  if not Assigned(QueryCadastro) then
+    Exit;
+
+  pbDadosAlterados := (QueryCadastro.State in dsEditModes) or (QueryCadastro.UpdateStatus <> usUnModified);
+end;
 
 procedure TFrmCadastroPadrao.DefinirConsulta(const FrmConsultaPadrao: TFrmConsultaPadrao);
 begin
@@ -218,12 +252,17 @@ begin
   FrmConsultaPadrao.Visible := True;
 end;
 
-procedure TFrmCadastroPadrao.LigarDesligarBotoes;
+procedure TFrmCadastroPadrao.HabilitarBotoes;
+var
+  bDadosAlterados: boolean;
 begin
-  btNovo.Enabled := dsCadastro.State in [dsBrowse, dsInsert, dsEdit];
-  btSalvar.Enabled := dsCadastro.State in dsEditModes;
-  btCancelar.Enabled := dsCadastro.State in dsEditModes;
-  btExcluir.Enabled := dsCadastro.State in [dsEdit];
+  if not Assigned(QueryCadastro) then
+    Exit;
+  DadosAlterados(bDadosAlterados);
+
+  btSalvar.Enabled := bDadosAlterados;
+  btCancelar.Enabled := bDadosAlterados;
+  btExcluir.Enabled := not QueryCadastro.IsEmpty;
 end;
 
 procedure TFrmCadastroPadrao.OnSelecionarRegistro(const RegistroSelecionado: TDataSet);

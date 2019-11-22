@@ -41,8 +41,5 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfMenuPrincipal, fMenuPrincipal);
-  Application.CreateForm(TFrmAgendaConsulta, FrmAgendaConsulta);
-  Application.CreateForm(TdmAgenda, dmAgenda);
-  Application.CreateForm(TFrmAgendaCadastro, FrmAgendaCadastro);
   Application.Run;
 end.

@@ -7,14 +7,20 @@ inherited FrmFuncaoCadastro: TFrmFuncaoCadastro
     inherited tsConsPadrao: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
-      ExplicitWidth = 647
-      ExplicitHeight = 347
+      ExplicitWidth = 657
+      ExplicitHeight = 357
+      inherited pnConsPadrao: TPanel
+        Top = 322
+        Width = 657
+        ExplicitTop = 322
+        ExplicitWidth = 657
+      end
     end
     inherited tsCadastroPadrao: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
-      ExplicitWidth = 647
-      ExplicitHeight = 347
+      ExplicitWidth = 657
+      ExplicitHeight = 357
       object lbCdFuncao: TLabel [0]
         Left = 12
         Top = 5
@@ -46,6 +52,7 @@ inherited FrmFuncaoCadastro: TFrmFuncaoCadastro
         Top = 60
         Width = 616
         Height = 21
+        CharCase = ecUpperCase
         DataField = 'NMFUNCAO'
         DataSource = dsCadastro
         TabOrder = 2

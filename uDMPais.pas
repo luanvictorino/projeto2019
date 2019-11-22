@@ -28,6 +28,9 @@ var
 
 implementation
 
+uses
+  Vcl.Dialogs;
+
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}

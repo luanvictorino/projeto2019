@@ -35,36 +35,36 @@ object fMenuPrincipal: TfMenuPrincipal
     Left = 376
     Top = 64
     object imCadastro: TMenuItem
-      Caption = 'Cadastro'
+      Caption = '&Cadastro'
       object imPessoa: TMenuItem
-        Caption = 'Pessoa'
+        Caption = '&Pessoa'
         OnClick = imPessoaClick
       end
       object Funo1: TMenuItem
-        Caption = 'Fun'#231#227'o'
+        Caption = '&Fun'#231#227'o'
         OnClick = Funo1Click
       end
       object imes1: TMenuItem
-        Caption = 'Times'
+        Caption = '&Times'
         OnClick = imes1Click
       end
       object imCidade: TMenuItem
-        Caption = 'Cidade'
+        Caption = '&Cidade'
         OnClick = imCidadeClick
       end
       object imEstado: TMenuItem
-        Caption = 'Estado'
+        Caption = '&Estado'
         OnClick = imEstadoClick
       end
       object imPais: TMenuItem
-        Caption = 'Pa'#237's'
+        Caption = 'P&a'#237's'
         OnClick = imPaisClick
       end
       object N1: TMenuItem
         Caption = '-'
       end
       object imSair: TMenuItem
-        Caption = 'Sair'
+        Caption = '&Sair'
         OnClick = imSairClick
       end
     end

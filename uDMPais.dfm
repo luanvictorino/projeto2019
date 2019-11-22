@@ -6,7 +6,6 @@ inherited dmPais: TdmPais
       'select *'
       'from pais'
       'where nmPais like :nmPais')
-    Top = 8
     ParamData = <
       item
         Name = 'NMPAIS'

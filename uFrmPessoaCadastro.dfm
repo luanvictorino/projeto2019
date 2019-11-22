@@ -4,18 +4,7 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
-    inherited tsConsPadrao: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 657
-      ExplicitHeight = 357
-      inherited pnConsPadrao: TPanel
-        Top = 322
-        Width = 657
-        ExplicitTop = 322
-        ExplicitWidth = 657
-      end
-    end
+    ActivePage = tsCadastroPadrao
     inherited tsCadastroPadrao: TTabSheet
       inherited pnCadastroPadrao: TPanel
         TabOrder = 1

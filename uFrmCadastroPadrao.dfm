@@ -20,21 +20,15 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
     Top = 0
     Width = 665
     Height = 385
-    ActivePage = tsCadastroPadrao
+    ActivePage = tsConsPadrao
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 655
-    ExplicitHeight = 375
     object tsConsPadrao: TTabSheet
       Caption = 'Consulta'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pnConsPadrao: TPanel
         Left = 0
-        Top = 312
-        Width = 647
+        Top = 322
+        Width = 657
         Height = 35
         Align = alBottom
         BevelOuter = bvNone
@@ -53,10 +47,6 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
     object tsCadastroPadrao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 647
-      ExplicitHeight = 347
       object pnCadastroPadrao: TPanel
         Left = 0
         Top = 316
@@ -64,14 +54,13 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
         Height = 41
         Align = alBottom
         TabOrder = 0
-        ExplicitTop = 306
-        ExplicitWidth = 647
         object btSalvar: TBitBtn
           Left = 3
           Top = 6
           Width = 75
           Height = 25
           Caption = '&Salvar'
+          Enabled = False
           TabOrder = 0
           OnClick = btSalvarClick
         end
@@ -81,6 +70,7 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
           Width = 75
           Height = 25
           Caption = '&Cancelar'
+          Enabled = False
           TabOrder = 1
           OnClick = btCancelarClick
         end
@@ -90,6 +80,7 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
           Width = 75
           Height = 25
           Caption = '&Excluir'
+          Enabled = False
           TabOrder = 2
           OnClick = btExcluirClick
         end

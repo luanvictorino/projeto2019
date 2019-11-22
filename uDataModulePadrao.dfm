@@ -16,6 +16,6 @@ object DataModulePadrao: TDataModulePadrao
   object sqlConsulta: TFDQuery
     Connection = Conexao
     Left = 248
-    Top = 16
+    Top = 8
   end
 end
