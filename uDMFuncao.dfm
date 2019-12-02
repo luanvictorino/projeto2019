@@ -6,7 +6,6 @@ inherited dmFuncao: TdmFuncao
       'SELECT * FROM FUNCAO'
       'WHERE NMFUNCAO LIKE :NMFUNCAO')
     Left = 256
-    Top = 8
     ParamData = <
       item
         Name = 'NMFUNCAO'

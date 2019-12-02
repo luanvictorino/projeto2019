@@ -8,7 +8,6 @@ object DataModulePadrao: TDataModulePadrao
       'User_Name=SYSDBA'
       'Password=SYSDBA'
       'DriverID=FB')
-    Connected = True
     LoginPrompt = False
     Left = 183
     Top = 8

@@ -52,6 +52,7 @@ begin
     begin
       poCampo.DisplayLabel := 'Nome Cidade';
       poCampo.DisplayWidth := 100;
+      TFDDataSet(poCampo.DataSet).IndexFieldNames := 'nmCidade';
     end);
   ConfigurarCampo(DataSet, 'nmEstado',
     procedure(const poCampo: TField)

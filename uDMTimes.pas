@@ -49,6 +49,7 @@ begin
     begin
       poCampo.DisplayLabel := 'Nome do Time';
       poCampo.DisplayWidth := 100;
+      TFDDataSet(poCampo.DataSet).IndexFieldNames := 'nmTimes';
     end);
   ConfigurarCampo(DataSet, 'idTimes',
     procedure(const poCampo: TField)

@@ -88,17 +88,17 @@ begin
   ExcluirRegistro;
 end;
 
+procedure TFrmCadastroPadrao.btCancelarClick(Sender: TObject);
+begin
+  CancelarRegistro;
+end;
+
 procedure TFrmCadastroPadrao.AbrirQuerySemRegistro;
 begin
   QueryCadastro.Params.ClearValues;
   if QueryCadastro.Active then
     QueryCadastro.Close;
   QueryCadastro.Open;
-end;
-
-procedure TFrmCadastroPadrao.btCancelarClick(Sender: TObject);
-begin
-  CancelarRegistro;
 end;
 
 {$ENDREGION}
@@ -226,7 +226,14 @@ end;
 
 procedure TFrmCadastroPadrao.CancelarRegistro;
 begin
-  QueryCadastro.Cancel;
+  if QueryCadastro.State in dsEditModes then
+    QueryCadastro.Cancel;
+
+  if Assigned(QueryCadastro.SchemaAdapter) then
+    QueryCadastro.SchemaAdapter.CancelUpdates
+  else if QueryCadastro.ChangeCount > 0 then
+    QueryCadastro.CancelUpdates;
+
   AbrirQuerySemRegistro;
   pgPadrao.ActivePage := tsConsPadrao;
 end;
@@ -270,6 +277,7 @@ var
   oCampoChave: TField;
   sCampoChave: string;
 begin
+
   if RegistroSelecionado.IsEmpty then
     Exit;
 
@@ -281,6 +289,9 @@ begin
 
   if oCampoChave.IsNull then
     Exit;
+
+  if Assigned(QueryCadastro.SchemaAdapter) then
+    QueryCadastro.SchemaAdapter.Close;
 
   QueryCadastro.Close;
   QueryCadastro.ParamByName(sCampoChave).Value := oCampoChave.Value;

@@ -1,4 +1,5 @@
 inherited FrmPaisCadastro: TFrmPaisCadastro
+  BorderIcons = [biSystemMenu]
   Caption = 'Cadastro de Pa'#237's'
   Position = poScreenCenter
   PixelsPerInch = 96
@@ -6,16 +7,10 @@ inherited FrmPaisCadastro: TFrmPaisCadastro
   inherited pgPadrao: TPageControl
     ActivePage = tsCadastroPadrao
     inherited tsConsPadrao: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 647
       ExplicitHeight = 347
     end
     inherited tsCadastroPadrao: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 647
-      ExplicitHeight = 347
       object lbCdPais: TLabel [0]
         Left = 12
         Top = 5

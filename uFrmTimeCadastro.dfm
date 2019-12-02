@@ -1,28 +1,11 @@
 inherited FrmTimeCadastro: TFrmTimeCadastro
+  BorderIcons = [biSystemMenu]
   Caption = 'Cadastro de Time'
   Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
-    ExplicitWidth = 665
-    ExplicitHeight = 385
-    inherited tsConsPadrao: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 657
-      ExplicitHeight = 357
-      inherited pnConsPadrao: TPanel
-        Top = 322
-        Width = 657
-        ExplicitTop = 322
-        ExplicitWidth = 657
-      end
-    end
     inherited tsCadastroPadrao: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 657
-      ExplicitHeight = 357
       object lbCdTimes: TLabel [0]
         Left = 12
         Top = 5
@@ -38,10 +21,6 @@ inherited FrmTimeCadastro: TFrmTimeCadastro
         Height = 13
         Caption = 'Time*'
         FocusControl = dfNmTimes
-      end
-      inherited pnCadastroPadrao: TPanel
-        ExplicitTop = 316
-        ExplicitWidth = 657
       end
       object dfCdTimes: TDBEdit
         Left = 12

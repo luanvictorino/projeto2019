@@ -7,7 +7,6 @@ inherited dmEstado: TdmEstado
       'from estado'
       'where nmEstado like :nmEstado')
     Left = 304
-    Top = 8
     ParamData = <
       item
         Name = 'NMESTADO'

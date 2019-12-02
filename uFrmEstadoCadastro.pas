@@ -114,7 +114,7 @@ var
   oFrmPaisConsulta: TfrmPaisConsulta;
   oDmPais: TdmPais;
 begin
-  if not(QueryCadastro.State in dsEditModes) then
+  if QueryCadastro.IsEmpty  then
     Exit;
 
   oDmPais := TdmPais.Create(nil);

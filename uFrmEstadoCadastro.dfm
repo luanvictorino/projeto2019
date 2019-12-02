@@ -1,20 +1,13 @@
 inherited FrmEstadoCadastro: TFrmEstadoCadastro
+  BorderIcons = [biSystemMenu]
   Caption = 'Cadastro de Estado'
   Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
-    inherited tsConsPadrao: TTabSheet
-      inherited pnConsPadrao: TPanel
-        Top = 322
-        Width = 657
-      end
-    end
     inherited tsCadastroPadrao: TTabSheet
       ParentShowHint = False
       ShowHint = True
-      ExplicitLeft = 4
-      ExplicitTop = 24
       object lbCdEstado: TLabel [0]
         Left = 12
         Top = 5

@@ -85,7 +85,6 @@ type
     procedure SalvarQryDetalhes; override;
     function TestarFuncionarTemTime: boolean;
     procedure ChamarConsultaCidade;
-    function TestarDm: TdmCidade;
     procedure SalvarRegistro; override;
     procedure DadosAlterados(var pbDadosAlterados: boolean); override;
   public
@@ -97,6 +96,18 @@ implementation
 
 {$R *.dfm}
 
+procedure TFrmPessoaCadastro.FormCreate(Sender: TObject);
+begin
+  inherited;
+  ControlarAbaFuncionarioAtiva
+end;
+
+procedure TFrmPessoaCadastro.ControlarAbaFuncionarioAtiva;
+begin
+  tsCadastroFuncionario.TabVisible := Assigned(QueryCadastro) and QueryCadastro.Active and
+    (QueryCadastro.UpdateStatus <> usInserted);
+end;
+
 procedure TFrmPessoaCadastro.btConsultarCidadeClick(Sender: TObject);
 begin
   ChamarConsultaCidade;
@@ -107,6 +118,9 @@ var
   oFrmCidadeConsulta: TfrmCidadeConsulta;
   oDmCidade: TdmCidade;
 begin
+  if QueryCadastro.IsEmpty then
+    Exit;
+
   oDmCidade := TdmCidade.Create(self);
   oFrmCidadeConsulta := PegarConsultaCidade(oDmCidade);
   try
@@ -154,6 +168,9 @@ var
   oFrmFuncaoConsulta: TfrmFuncaoConsulta;
   oDmFuncao: TdmFuncao;
 begin
+  if QueryCadastro.IsEmpty then
+    Exit;
+
   oDmFuncao := TdmFuncao.Create(self);
   oFrmFuncaoConsulta := PegarConsultaFuncao(oDmFuncao);
   try
@@ -220,12 +237,6 @@ begin
     oLookup := RetornaFuncaoLookup(Field, oNmFuncao);
     oLookup.Executar;
   end;
-end;
-
-procedure TFrmPessoaCadastro.FormCreate(Sender: TObject);
-begin
-  inherited;
-  ControlarAbaFuncionarioAtiva
 end;
 
 function TFrmPessoaCadastro.RetornaFuncaoLookup(const poIdFuncao, poNmCampo: TField): ILookUp;
@@ -307,6 +318,74 @@ begin
   ControlarAbaFuncionarioAtiva;
 end;
 
+procedure TFrmPessoaCadastro.ControlarBotoesEntradaSaidaTime;
+var
+  bFuncionarioNuncaFoiGravadoNoBanco: boolean;
+begin
+  btEntrarTime.Enabled := False;
+  btSairTime.Enabled := False;
+
+  if not qryFuncionario.Active then
+    Exit;
+
+  if qryFuncionario.IsEmpty then
+    Exit;
+
+  bFuncionarioNuncaFoiGravadoNoBanco := qryFuncionario.UpdateStatus = usInserted;
+  if bFuncionarioNuncaFoiGravadoNoBanco then
+    Exit;
+
+  btEntrarTime.Enabled := TestarPodeHabilitarEntradaTime;
+  btSairTime.Enabled := TestarPodeHabilitarSaidaTime;
+end;
+
+function TFrmPessoaCadastro.TestarPodeHabilitarEntradaTime: boolean;
+var
+  bFuncionarioTemTime: boolean;
+  bFuncionarioAdmitido: boolean;
+begin
+  Result := False;
+
+  if not(qryFuncionario.FieldByName('dtDemissao').IsNull) then
+    Exit;
+
+  bFuncionarioAdmitido := (not qryTimesHistorico.IsEmpty) or (not qryFuncionario.FieldByName('dtAdmissao').IsNull);
+  if not bFuncionarioAdmitido then
+    Exit;
+
+  bFuncionarioTemTime := TestarFuncionarTemTime;
+  if bFuncionarioTemTime then
+    Exit;
+
+  Result := True;
+end;
+
+function TFrmPessoaCadastro.TestarPodeHabilitarSaidaTime: boolean;
+begin
+  Result := TestarFuncionarTemTime;
+end;
+
+function TFrmPessoaCadastro.TestarFuncionarTemTime: boolean;
+var
+  oTimesHistorico: TFDMemTable;
+  nIdPessoa: integer;
+begin
+  Result := False;
+
+  if not qryTimesHistorico.Active then
+    Exit;
+
+  nIdPessoa := qryTimesHistorico.FieldByName('idPessoa').AsInteger;
+
+  oTimesHistorico := TFDMemTable.Create(Nil);
+  try
+    oTimesHistorico.CloneCursor(qryTimesHistorico);
+    Result := oTimesHistorico.FindKey([nIdPessoa, Null]);
+  finally
+    FreeAndNil(oTimesHistorico);
+  end;
+end;
+
 function TFrmPessoaCadastro.TestarRegistroValido: boolean;
 begin
   Result := False;
@@ -386,36 +465,6 @@ begin
   end;
 end;
 
-procedure TFrmPessoaCadastro.ControlarAbaFuncionarioAtiva;
-begin
-  tsCadastroFuncionario.TabVisible := Assigned(QueryCadastro) and QueryCadastro.Active and
-    (QueryCadastro.UpdateStatus <> usInserted);
-end;
-
-procedure TFrmPessoaCadastro.ControlarBotoesEntradaSaidaTime;
-var
-  bFuncionarioNuncaFoiGravadoNoBanco: boolean;
-begin
-  btEntrarTime.Enabled := False;
-  btSairTime.Enabled := False;
-
-  if not qryFuncionario.Active then
-    Exit;
-
-  if qryFuncionario.IsEmpty then
-    Exit;
-
-  if not(qryFuncionario.FieldByName('dtDemissao').IsNull) then
-    Exit;
-
-  bFuncionarioNuncaFoiGravadoNoBanco := qryFuncionario.UpdateStatus = usInserted;
-  if bFuncionarioNuncaFoiGravadoNoBanco then
-    Exit;
-
-  btEntrarTime.Enabled := TestarPodeHabilitarEntradaTime;
-  btSairTime.Enabled := TestarPodeHabilitarSaidaTime;
-end;
-
 procedure TFrmPessoaCadastro.DadosAlterados(var pbDadosAlterados: boolean);
 begin
   if pbDadosAlterados then
@@ -427,59 +476,6 @@ begin
     Exit;
 
   pbDadosAlterados := TestarQueryAlterada(qryTimesHistorico);
-end;
-
-function TFrmPessoaCadastro.TestarPodeHabilitarEntradaTime: boolean;
-var
-  bFuncionarioTemTime: boolean;
-  bFuncionarioAdmitido: boolean;
-begin
-  Result := False;
-
-  bFuncionarioAdmitido := (not qryTimesHistorico.IsEmpty) or (not qryFuncionario.FieldByName('dtAdmissao').IsNull);
-
-  if not bFuncionarioAdmitido then
-    Exit;
-
-  bFuncionarioTemTime := TestarFuncionarTemTime;
-  if bFuncionarioTemTime then
-    Exit;
-
-  Result := True;
-end;
-
-function TFrmPessoaCadastro.TestarDm: TdmCidade;
-var
-  dmCidade: TdmCidade;
-begin
-  dmCidade := TdmCidade.Create(nil);
-  Result := dmCidade;
-end;
-
-function TFrmPessoaCadastro.TestarFuncionarTemTime: boolean;
-var
-  oTimesHistorico: TFDMemTable;
-  nIdPessoa: integer;
-begin
-  Result := False;
-
-  if not qryTimesHistorico.Active then
-    Exit;
-
-  nIdPessoa := qryTimesHistorico.FieldByName('idPessoa').AsInteger;
-
-  oTimesHistorico := TFDMemTable.Create(Nil);
-  try
-    oTimesHistorico.CloneCursor(qryTimesHistorico);
-    Result := oTimesHistorico.FindKey([nIdPessoa, Null]);
-  finally
-    FreeAndNil(oTimesHistorico);
-  end;
-end;
-
-function TFrmPessoaCadastro.TestarPodeHabilitarSaidaTime: boolean;
-begin
-  Result := TestarFuncionarTemTime;
 end;
 
 function TFrmPessoaCadastro.GetQryFuncionario: TFDQuery;

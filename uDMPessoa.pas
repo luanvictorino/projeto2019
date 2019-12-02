@@ -13,7 +13,6 @@ uses
 
 type
 
-
   TdmPessoa = class(TDataModulePadrao)
     sqlPessoa: TFDQuery;
     sqlFuncionario: TFDQuery;
@@ -50,9 +49,7 @@ type
 implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
-
 {$R *.dfm}
-
 { TdmPessoa }
 
 procedure TdmPessoa.sqlConsultaAfterOpen(DataSet: TDataSet);
@@ -81,6 +78,7 @@ begin
     begin
       poCampo.DisplayLabel := 'Nome da Pessoa';
       poCampo.DisplayWidth := 30;
+      TFDDataSet(poCampo.DataSet).IndexFieldNames := 'nmPessoa';
     end);
   ConfigurarCampo(DataSet, 'idPessoa',
     procedure(const poCampo: TField)

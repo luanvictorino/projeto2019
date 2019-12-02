@@ -5,7 +5,6 @@ inherited dmTimes: TdmTimes
     SQL.Strings = (
       'SELECT * FROM TIMES'
       'WHERE NMTIMES LIKE :NMTIMES')
-    Top = 8
     ParamData = <
       item
         Name = 'NMTIMES'

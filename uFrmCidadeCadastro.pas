@@ -16,10 +16,10 @@ type
     dfNmCidade: TDBEdit;
     lbCdEstado: TLabel;
     dfCdEstado: TDBEdit;
-    btConsultar: TSpeedButton;
+    btConsultarEstado: TSpeedButton;
     lbNmEstado: TLabel;
     dfNMEstado: TDBEdit;
-    procedure btConsultarClick(Sender: TObject);
+    procedure btConsultarEstadoClick(Sender: TObject);
     procedure dsCadastroDataChange(Sender: TObject; Field: TField);
   private
     FEstadoLookup: ILookUp;
@@ -83,11 +83,14 @@ begin
   Result := True;
 end;
 
-procedure TFrmCidadeCadastro.btConsultarClick(Sender: TObject);
+procedure TFrmCidadeCadastro.btConsultarEstadoClick(Sender: TObject);
 var
   oFrmEstadoConsulta: TfrmEstadoConsulta;
   oDmEstado: TdmEstado;
 begin
+  if QueryCadastro.IsEmpty then
+    Exit;
+
   oDmEstado := TdmEstado.Create(self);
   oFrmEstadoConsulta := PegarConsultaEstado(oDmEstado);
   try
@@ -171,7 +174,7 @@ end;
 
 function TFrmCidadeCadastro.PegarCampoChave: string;
 begin
-  Result := 'IDCIDADE'
+  Result := 'IDCIDADE';
 end;
 
 function TFrmCidadeCadastro.PegarConsultaEstado(const poDmEstado: TdmEstado): TfrmEstadoConsulta;

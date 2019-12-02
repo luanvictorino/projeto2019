@@ -153,7 +153,6 @@ end;
 procedure TFrmConsultaPadrao.SelecionarRegistroInternal;
 begin
   fmeConsulta.SelecionarRegistro;
-
 end;
 
 function TFrmConsultaPadrao.GetOnSelecionarRegistro: TOnSelecionarRegistro;

@@ -1,4 +1,5 @@
 inherited FrmCidadeCadastro: TFrmCidadeCadastro
+  BorderIcons = [biSystemMenu]
   Caption = 'Cadastro de Cidade'
   Position = poScreenCenter
   PixelsPerInch = 96
@@ -9,14 +10,12 @@ inherited FrmCidadeCadastro: TFrmCidadeCadastro
       ExplicitTop = 24
       ExplicitWidth = 657
       ExplicitHeight = 357
-      inherited pnConsPadrao: TPanel
-        Top = 322
-        Width = 657
-      end
     end
     inherited tsCadastroPadrao: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
+      ExplicitWidth = 657
+      ExplicitHeight = 357
       object lbCdCidade: TLabel [0]
         Left = 12
         Top = 5
@@ -41,7 +40,7 @@ inherited FrmCidadeCadastro: TFrmCidadeCadastro
         Caption = 'C'#243'd. Estado*'
         FocusControl = dfCdEstado
       end
-      object btConsultar: TSpeedButton [3]
+      object btConsultarEstado: TSpeedButton [3]
         Left = 63
         Top = 100
         Width = 23
@@ -77,7 +76,7 @@ inherited FrmCidadeCadastro: TFrmCidadeCadastro
           07000000898989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFF
           FFFFFFCFCFCF545454050505000000131313717171E2E2E2FFFFFFFFFFFFFFFF
           FFFFFFFFFFFFFFFFFFFFFFFFFF00}
-        OnClick = btConsultarClick
+        OnClick = btConsultarEstadoClick
       end
       object lbNmEstado: TLabel [4]
         Left = 91

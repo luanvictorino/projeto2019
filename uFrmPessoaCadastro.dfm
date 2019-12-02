@@ -1,11 +1,15 @@
 inherited FrmPessoaCadastro: TFrmPessoaCadastro
+  BorderIcons = [biSystemMenu]
   Caption = 'Cadastro de Pessoa'
   Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgPadrao: TPageControl
-    ActivePage = tsCadastroPadrao
     inherited tsCadastroPadrao: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 657
+      ExplicitHeight = 357
       inherited pnCadastroPadrao: TPanel
         TabOrder = 1
         inherited btSalvar: TBitBtn
@@ -18,7 +22,7 @@ inherited FrmPessoaCadastro: TFrmPessoaCadastro
         Top = 0
         Width = 657
         Height = 316
-        ActivePage = tsCadastroFuncionario
+        ActivePage = tsCadastroPessoa
         Align = alClient
         TabOrder = 0
         object tsCadastroPessoa: TTabSheet

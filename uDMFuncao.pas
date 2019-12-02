@@ -49,6 +49,7 @@ begin
     begin
       poCampo.DisplayLabel := 'Nome da Função';
       poCampo.DisplayWidth := 100;
+      TFDDataSet(poCampo.DataSet).IndexFieldNames := 'nmFuncao';
     end);
   ConfigurarCampo(DataSet, 'idFuncao',
     procedure(const poCampo: TField)
